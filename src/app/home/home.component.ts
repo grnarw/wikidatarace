@@ -37,6 +37,7 @@ export class HomeComponent implements OnInit {
         });
 
         // FILTER POUR NE REQUETER QUE DES PROPRIETES UNE SEULE FOIS PAS DE DOUBLONS
+          // TODO
         this.items.forEach((elm: Element) => {
           let sparqlQuery = `
             SELECT ?propertyLabel WHERE {
