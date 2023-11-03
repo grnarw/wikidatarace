@@ -1,66 +1,64 @@
-import {Component, OnInit} from '@angular/core';
-import {WikidataService} from "../shared/service/wikidata.service";
-import {Element} from "../shared/model/element.model";
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {UserService} from "../shared/service/user.service";
+import {User} from "../shared/model/user.model";
+import {Subscription} from "rxjs";
+import {Router} from "@angular/router";
+import {DifficultyConstant} from "../shared/constant/difficulty.constant";
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
 
-  items: Element[] = [];
+  user = new User("", DifficultyConstant.DEFAULT, []);
 
-  constructor(private wikiDataService: WikidataService) {}
+  private subscriptions: Subscription[] = [];
+
+  constructor(private userService: UserService,
+              private router: Router) {  }
 
   ngOnInit() {
-    let sparqlQuery = `
-      SELECT ?property ?value ?valueLabel
-      WHERE {
-        wd:Q90 ?property ?value.
-        SERVICE wikibase:label {
-          bd:serviceParam wikibase:language "fr".
-          ?value rdfs:label ?valueLabel.
-        }
-        FILTER(LANG(?valueLabel) = "fr").
-      } LIMIT 10
-    `;
-
-    this.wikiDataService.executeSparqlQuery(sparqlQuery).subscribe({
-      next: (response) => {
-        response.results.bindings.forEach((elm: any) => {
-          this.items.push(
-            new Element(elm.property.value.replace("http://www.wikidata.org/prop/direct/", ""),
-              elm.value.value.replace("http://www.wikidata.org/entity/", ""),
-              elm.valueLabel.value)
-          );
-        });
-
-        // FILTER POUR NE REQUETER QUE DES PROPRIETES UNE SEULE FOIS PAS DE DOUBLONS
-          // TODO
-        this.items.forEach((elm: Element) => {
-          let sparqlQuery = `
-            SELECT ?propertyLabel WHERE {
-               wd:${elm.subject} rdfs:label ?propertyLabel.
-               FILTER(LANG(?propertyLabel) = "fr").
-            }
-          `;
-          console.log(sparqlQuery);
-          this.wikiDataService.executeSparqlQuery(sparqlQuery).subscribe({
-              next: (response) => {
-                elm.subjectLabel = response.results.bindings[0].propertyLabel.value;
-              },
-              error: (err) => {
-                  console.error('Error executing SPARQL query: ', err);
-              }
-          });
-        });
-
-      },
-      error: (err) => {
-        console.error('Error executing SPARQL query: ', err);
-      }
+    // s'abonne à l'utilisateur courant
+    const sub = this.userService.getUser().subscribe(user => {
+      this.user = user;
     });
+    this.subscriptions.push(sub);
+  }
+
+  /**
+   * Met à jour l'utilisateur courant
+   * (appelé lors de la modification du nom d'utilisateur)
+   * @param username - nouveau nom d'utilisateur
+   */
+  updateUsername(username: string) {
+    this.user.username = username;
+    this.userService.updateUser(this.user);
+  }
+
+  /**
+   * Met à jour la difficulté de l'utilisateur courant
+   * (appelé lors de la modification de la difficulté)
+   * @param difficulty - nouvelle difficulté
+   */
+  updateDifficulty(difficulty: number) {
+    this.user.lastDifficulty = difficulty;
+    this.userService.updateUser(this.user);
+  }
+
+  /**
+   * Crée une nouvelle partie
+   * (appelé lors du clic sur le bouton "Nouvelle partie")
+   */
+  newGame(){
+    this.user.newGame(this.user.lastDifficulty);
+    this.userService.updateUser(this.user);
+    this.router.navigate(['/game']).then();
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(sub => sub.unsubscribe());
   }
 
 }

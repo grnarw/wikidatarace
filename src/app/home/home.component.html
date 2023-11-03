@@ -1,5 +1,44 @@
-<ul>
-  <li *ngFor="let item of items">
-    {{ item.subject }} - {{ item.subjectLabel }} - {{ item.predicate }} - {{ item.object }}
-  </li>
-</ul>
+<h1>Bienvenue sur WikiData Race</h1>
+
+<h2>Mon profil</h2>
+<div>
+  <label for="username">Nom d'utilisateur</label>
+  <input type="text" name="username" id="username" placeholder="MonPseudo"
+         [ngModel]="user.username" (ngModelChange)="updateUsername($event)" />
+</div>
+
+<h2>Jeu</h2>
+
+
+<div class="slider-container">
+  <input type="range" min="4" max="10" value="4" id="difficulty"
+         [ngModel]="user.lastDifficulty" (ngModelChange)="updateDifficulty($event)"/>
+  <p>Difficulté : {{ user.lastDifficulty }}</p>
+</div>
+
+<button id="new-game" (click)="newGame()">Nouvelle partie</button>
+
+
+<h2>Historique</h2>
+<div *ngIf="user.games.length === 0">
+  <p>Aucune partie jouée</p>
+</div>
+
+<div *ngIf="user.games.length > 0">
+  <table>
+    <thead>
+      <tr>
+        <th>Difficulté</th>
+        <th>Score</th>
+        <th>Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let game of user.games">
+        <td>{{ game.difficulty }}</td>
+        <td>{{ game.score }}</td>
+        <td>{{ game.start | date:'dd/MM/yyyy HH:mm' }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
