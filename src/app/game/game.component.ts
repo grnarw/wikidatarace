@@ -6,6 +6,7 @@ import {Subscription} from "rxjs";
 import {Router} from "@angular/router";
 import {TimerService} from "../shared/service/timer.service";
 import {FormatHelper} from "../shared/helper/format.helper";
+import { Element } from '../shared/model/element.model';
 
 @Component({
   selector: 'app-game',
@@ -17,6 +18,9 @@ export class GameComponent implements OnInit, OnDestroy {
   loaderWidth = '0';
   step = '';
   game = new Game(DifficultyConstant.DEFAULT);
+  username = "";
+
+  propertyCards: Element[] = [];
 
   currentTime = 0;
   timerSubscription!: Subscription;
@@ -31,6 +35,9 @@ export class GameComponent implements OnInit, OnDestroy {
     const sub = this.gameService.getGame().subscribe({
       next: (game) => {
         this.game = game;
+
+
+        
       }
     });
     this.subscriptions.push(sub);
@@ -40,6 +47,9 @@ export class GameComponent implements OnInit, OnDestroy {
     if( this.game == undefined ) {
       this.router.navigate(['/home']).then(() => {});
     }else {
+      //récupérer le pseudo du joueur
+      this.username=this.gameService.getUsername();
+
       if ( this.game.bestPath.length == 0 ) {
         this.initNewGame().then(() => {});
       }else{
@@ -64,6 +74,9 @@ export class GameComponent implements OnInit, OnDestroy {
 
     this.step = "Préparation de la page";
     await this.gameService.initNewPage();
+
+    this.initUniqueProperties();
+
     this.loaderWidth = '100%';
     await new Promise(resolve => setTimeout(resolve, 1000));
 
@@ -75,8 +88,11 @@ export class GameComponent implements OnInit, OnDestroy {
    * Initialise la reprise d'une partie en cours
    */
   async initResumeGame() {
+    this.gameService.updateStatus("loading");
+    this.initUniqueProperties();
     this.currentTime = this.game.duration;
     await this.gameService.initPage();
+    this.gameService.updateStatus("in-progress");
     this.startTimer();
   }
 
@@ -98,7 +114,6 @@ export class GameComponent implements OnInit, OnDestroy {
     this.timerSubscription = this.timerService.startTimer(this.currentTime).subscribe(time => {
       this.currentTime = time;
       this.game.duration = time;
-      console.log("time : ", this.game.duration);
       this.gameService.saveGame(this.game);
     });
   }
@@ -119,6 +134,42 @@ export class GameComponent implements OnInit, OnDestroy {
    */
   formatTime(time: number): string {
     return FormatHelper.formatTime(time);
+  }
+
+  getCurrentElement(){
+    return this.game.userPath[this.game.userPath.length - 1].departure;
+  }
+
+  getPropertiesOf(subject : string){
+    let tempList: Element[] = [];
+    this.getCurrentElement().elements.forEach((element) => {
+      if(element.subject == subject){
+        tempList.push(element);
+      }
+    });
+    
+    return tempList;
+  }
+
+  navigateTo(predicat : string){
+    console.log(predicat);
+    
+  }
+
+  initUniqueProperties(){
+    // Trie des properties, extrait les propriétés sans doublons
+    this.getCurrentElement().elements.forEach((elm) => {
+      let contains = false;
+      for(const card of this.propertyCards){
+        if( card.subject == elm.subject){
+          contains=true;
+          break;
+        }
+      }
+        if(!contains){
+          this.propertyCards.push(elm);
+        }
+    })
   }
 
   ngOnDestroy(): void {

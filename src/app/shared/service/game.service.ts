@@ -211,6 +211,10 @@ export class GameService implements OnDestroy {
     this.userService.updateUser(this.user);
   }
 
+  getUsername(){
+    return this.user.username;
+  }
+
   ngOnDestroy(): void {
     this.subscriptions.forEach((sub) => sub.unsubscribe());
   }
