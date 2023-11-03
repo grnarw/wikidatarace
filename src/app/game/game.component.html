@@ -18,7 +18,8 @@
     <div class="header-game">
       <div class="page-name">
         <!-- Point Départ de la page -->
-        <h1 *ngIf="game.status == 'in-progress'">{{ game.userPath.at(game.userPath.length - 1)!.departure.subjectLabel }}</h1>
+        <h1
+          *ngIf="game.status == 'in-progress'">{{ game.userPath.at(game.userPath.length - 1)!.departure.subjectLabel }}</h1>
       </div>
       <div class="timer">
         <!-- Timer -->
@@ -27,35 +28,26 @@
       </div>
     </div>
 
-    <div class="game-property" >
+    <div class="game-property">
 
       <!-- Barre de chargement-->
-      <div *ngIf="game.status == 'loading'">
+      <div *ngIf="game.status == 'loading'" class="loader-content">
         <h3>Chargement : {{step}}</h3>
         <div class="loader-container">
           <div class="loader" style="width: 0{{loaderWidth}}"></div>
         </div>
       </div>
 
-
-      <!-- Contenu de la page ( wikidata ) -->
-      <!--
-      <div *ngIf="game.status == 'in-progress'">
-        
-        <p *ngFor="let p of game.userPath.at(game.userPath.length - 1)!.departure.elements">
-          {{ p.subject }} - {{ p.subjectLabel }} - {{ p.predicate }} - {{ p.object }}
-        </p>
-      </div>
-      -->
-        <div class="property-card"  *ngFor="let card of propertyCards" >
-
-          <h2>{{card.subjectLabel}}</h2>
-              <!--for-->
-              <p *ngFor="let p of getPropertiesOf(card.subject)">
-                <a (click)="navigateTo(p.predicate)">{{ p.object }}</a>  
-              </p>
-
+      <div class="property-card-container" *ngIf="game.status == 'in-progress'">
+        <div class="property-card" *ngFor="let card of propertyCards">
+          <div >
+            <h2>{{card.subjectLabel}}</h2>
+            <p *ngFor="let p of getPropertiesOf(card.subject)">
+              <a href="#" (click)="navigateTo(p.predicate)">{{ p.object }}</a>
+            </p>
+          </div>
         </div>
+      </div>
 
     </div>
   </div>

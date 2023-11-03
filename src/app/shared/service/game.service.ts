@@ -85,7 +85,28 @@ export class GameService implements OnDestroy {
       console.log("i = " + i);
       console.log(departureSubject);
 
-      const properties = await this.wikidataService.getSubjectProperties(departureSubject);
+      let properties = await this.wikidataService.getSubjectProperties(departureSubject);
+      console.log('prop', properties)
+
+      // compte le nombre de fois qu'une propriété est présente
+      let countProperties = properties.reduce((acc: any, elm: any) => {
+        acc[elm.property.value] = (acc[elm.property.value] || 0) + 1;
+        return acc;
+      }, {});
+
+      // filtre les propriétés qui sont présentes plus de 4 fois
+      countProperties = Object.keys(countProperties).filter((key: any) => countProperties[key] > 4);
+
+      // supprime les propriétés qui sont présentes plus de 4 fois
+      countProperties.forEach((elm: string) => {
+        for (let i = properties.length - 1; i >= 0; i--) {
+          if (properties[i]['property']['value'] == (elm)) { // Condition pour supprimer l'élément
+            console.log("Supprime : " + properties[i]['property']['value']);
+            properties.splice(i, 1);
+          }
+        }
+      });
+
       // récupère une propriété aléatoire
       let value: string = properties[Math.floor(Math.random() * properties.length)]['value']['value'];
       arrivalSubject = value.replace("http://www.wikidata.org/entity/", "");
@@ -117,6 +138,25 @@ export class GameService implements OnDestroy {
 
     // récupère les propriétés de l'élément courant
     const properties = await this.wikidataService.getSubjectProperties(currentSubject);
+
+    // compte le nombre de fois qu'une propriété est présente
+    let countProperties = properties.reduce((acc: any, elm: any) => {
+      acc[elm.property.value] = (acc[elm.property.value] || 0) + 1;
+      return acc;
+    }, {});
+
+    // filtre les propriétés qui sont présentes plus de 4 fois
+    countProperties = Object.keys(countProperties).filter((key: any) => countProperties[key] > 4);
+
+    // supprime les propriétés qui sont présentes plus de 4 fois
+    countProperties.forEach((elm: string) => {
+      for (let i = properties.length - 1; i >= 0; i--) {
+        if (properties[i]['property']['value'] == (elm)) { // Condition pour supprimer l'élément
+          console.log("Supprime : " + properties[i]['property']['value']);
+          properties.splice(i, 1);
+        }
+      }
+    });
 
     // ajoute les propriétés à l'élément courant
     properties.forEach((elm: any) => {
