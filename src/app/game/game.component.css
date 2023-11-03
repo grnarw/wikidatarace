@@ -58,12 +58,14 @@
 
 .moves-history{
   flex-grow: 1;
+  overflow: auto;
 }
 
 .giveup-button{
   border-top:1px solid gray;
   padding: 10px 0;
-  display:flex;
+  display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 }
@@ -87,6 +89,7 @@
   justify-content: space-between;
   align-items: center;
   border-bottom: 1px solid gray;
+  height: 80px;
 }
 
 .page-name{
@@ -103,7 +106,8 @@
 
 .timer h1{
   font-size: 1.1em;
-  padding-right: 15px
+  padding-right: 15px;
+  width: 135px;
 }
 
 .game-property, .property-card-container{
@@ -118,13 +122,31 @@
 }
 
 .property-card{
-  background: red;
+  background: lightgray;
   border-radius: 25px;
   padding: 5px 30px;
   height: fit-content;
 }
 
-a {
-  text-decoration: none;
-  color: black;
+.property-card h2{
+  font-size: 1.5em;
+  text-align: center;
+}
+
+.property-card p {
+  cursor: pointer;
+}
+
+.property-card p::first-letter, .property-card h2::first-letter{
+  text-transform: uppercase;
+}
+
+.move {
+  padding: 0 8px;
+  margin: 8px;
+  border: 1px solid grey;
+}
+
+.move.backstep{
+  background-color: lightgray;
 }

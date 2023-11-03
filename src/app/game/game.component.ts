@@ -35,9 +35,6 @@ export class GameComponent implements OnInit, OnDestroy {
     const sub = this.gameService.getGame().subscribe({
       next: (game) => {
         this.game = game;
-
-
-        
       }
     });
     this.subscriptions.push(sub);
@@ -75,6 +72,7 @@ export class GameComponent implements OnInit, OnDestroy {
     this.step = "Préparation de la page";
     await this.gameService.initNewPage();
 
+    // Recupère les propriétés de l'élément courant sans doublons
     this.initUniqueProperties();
 
     this.loaderWidth = '100%';
@@ -89,9 +87,24 @@ export class GameComponent implements OnInit, OnDestroy {
    */
   async initResumeGame() {
     this.gameService.updateStatus("loading");
+
+    this.step = "Reprise de la partie";
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    this.loaderWidth = '25%';
+
+    // Recupère les propriétés de l'élément courant sans doublons
     this.initUniqueProperties();
+    // Récupération du timer
     this.currentTime = this.game.duration;
+
+    // Récupération de la page
+    this.loaderWidth = '50%';
+    this.step = "Récupération de la page";
     await this.gameService.initPage();
+
+    this.loaderWidth = '100%';
+    await new Promise(resolve => setTimeout(resolve, 1000));
+
     this.gameService.updateStatus("in-progress");
     this.startTimer();
   }
@@ -136,10 +149,17 @@ export class GameComponent implements OnInit, OnDestroy {
     return FormatHelper.formatTime(time);
   }
 
+  /**
+   * Permet de récupérer l'élément courant
+   */
   getCurrentElement(){
     return this.game.userPath[this.game.userPath.length - 1].departure;
   }
 
+  /**
+   * Permet de récupérer les propriétés d'un sujet
+   * @param subject - sujet dont on veut récupérer les propriétés
+   */
   getPropertiesOf(subject : string){
     let tempList: Element[] = [];
     this.getCurrentElement().elements.forEach((element) => {
@@ -147,29 +167,86 @@ export class GameComponent implements OnInit, OnDestroy {
         tempList.push(element);
       }
     });
-    
+
     return tempList;
   }
 
+  /**
+   * Permet de naviguer vers une nouvelle page
+   * @param predicat - predicat de la nouvelle page
+   */
   navigateTo(predicat : string){
-    console.log(predicat);
-    
+    if ( this.game.bestPath[this.game.bestPath.length - 1].arrival.subject == predicat ) {
+      this.gameService.win();
+      this.stopTimer();
+      this.router.navigate(['/home']).then(() => {});
+      return;
+    }
+
+    this.loaderWidth = '0';
+    this.gameService.updateStatus("nav-loading");
+    this.gameService.navigateTo(predicat);
+
+    this.step = "Navigation vers la page suivante";
+    new Promise(resolve => setTimeout(resolve, 500)).then(() => {
+      this.loaderWidth = '50%';
+      this.step = "Préparation de la page";
+      this.gameService.initNewPage().then(() => {
+        this.loaderWidth = '100%';
+        this.initUniqueProperties();
+        new Promise(resolve => setTimeout(resolve, 1000)).then(() => {
+          this.gameService.updateStatus("in-progress");
+        });
+      });
+    });
   }
 
+  /**
+   * Permet de revenir en arrière
+   */
+  backstep() {
+    if ( this.gameService.canBackstep() ) {
+      this.loaderWidth = '0';
+      this.gameService.updateStatus("nav-loading");
+      this.gameService.backstep();
+
+      this.step = "Navigation vers la page précédente";
+      new Promise(resolve => setTimeout(resolve, 500)).then(() => {
+        this.loaderWidth = '50%';
+        this.step = "Préparation de la page";
+        this.gameService.initNewPage().then(() => {
+          this.loaderWidth = '100%';
+          this.initUniqueProperties();
+          new Promise(resolve => setTimeout(resolve, 1000)).then(() => {
+            this.gameService.updateStatus("in-progress");
+          });
+        });
+      });
+    }else{
+      alert("Vous ne pouvez pas revenir en arrière");
+    }
+  }
+
+  /**
+   * Permet d'initialiser la liste de propriétés sans doublons
+   */
   initUniqueProperties(){
     // Trie des properties, extrait les propriétés sans doublons
-    this.getCurrentElement().elements.forEach((elm) => {
-      let contains = false;
-      for(const card of this.propertyCards){
-        if( card.subject == elm.subject){
-          contains=true;
-          break;
-        }
-      }
-        if(!contains){
-          this.propertyCards.push(elm);
-        }
-    })
+    this.propertyCards = this.getCurrentElement().elements.filter((thing, i, arr) => {
+      return arr.findIndex(t => t.subject === thing.subject) === i;
+    });
+  }
+
+  /**
+   * Permet de récupérer l'historique des mouvements précédents
+   * @returns - l'historique des mouvements précédents
+   */
+  getMovesHistory(){
+    // fais une copie complète de la liste des mouvements
+    let tmp = Object.assign([], this.game.userPath);
+    tmp.pop();
+    tmp.reverse();
+    return tmp;
   }
 
   ngOnDestroy(): void {

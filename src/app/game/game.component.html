@@ -5,10 +5,26 @@
       <h1><i class="fa fa-user"></i>{{username}}</h1>
     </div>
 
-    <div class="moves-history"></div>
+    <div style="flex-grow: 1" *ngIf="game.status == 'loading'" id="spacer"></div>
+    <div class="moves-history" *ngIf="game.status == 'in-progress' || game.status == 'nav-loading'">
+      <button (click)="backstep()" [disabled]="game.status == 'nav-loading'">Retour arrière</button>
+
+      <div class="move-container" *ngFor="let move of getMovesHistory()">
+        <div class="move" [ngClass]="{'backstep': move.backstep}">
+          <p>
+            De
+            <b style="text-transform: capitalize">{{ move.departure.subjectLabel }}</b>
+            à
+            <b style="text-transform: capitalize">{{ move.arrival.subjectLabel }}</b>
+          </p>
+        </div>
+      </div>
+    </div>
 
     <div class="giveup-button">
       <!-- Bouton Abandonner -->
+      <p>Page cible : {{ game.bestPath.at(game.bestPath.length-1)?.arrival?.subjectLabel }} </p>
+
       <button (click)="giveup()">Abandonner</button>
     </div>
 
@@ -23,7 +39,7 @@
       </div>
       <div class="timer">
         <!-- Timer -->
-        <h1>Temps : {{ formatTime(currentTime) }}</h1>
+        <h1 *ngIf="game.status == 'in-progress'">Temps : {{ formatTime(currentTime) }}</h1>
         <!-- Fin Timer -->
       </div>
     </div>
@@ -31,7 +47,7 @@
     <div class="game-property">
 
       <!-- Barre de chargement-->
-      <div *ngIf="game.status == 'loading'" class="loader-content">
+      <div *ngIf="game.status == 'loading' || game.status == 'nav-loading'" class="loader-content">
         <h3>Chargement : {{step}}</h3>
         <div class="loader-container">
           <div class="loader" style="width: 0{{loaderWidth}}"></div>
@@ -40,12 +56,10 @@
 
       <div class="property-card-container" *ngIf="game.status == 'in-progress'">
         <div class="property-card" *ngFor="let card of propertyCards">
-          <div >
-            <h2>{{card.subjectLabel}}</h2>
-            <p *ngFor="let p of getPropertiesOf(card.subject)">
-              <a href="#" (click)="navigateTo(p.predicate)">{{ p.object }}</a>
-            </p>
-          </div>
+          <h2>{{card.subjectLabel}}</h2>
+          <p *ngFor="let p of getPropertiesOf(card.subject)" (click)="navigateTo(p.predicate)">
+            {{ p.object }}
+          </p>
         </div>
       </div>
 
