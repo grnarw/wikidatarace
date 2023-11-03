@@ -40,7 +40,7 @@
       <tr *ngFor="let game of user.games.reverse()">
         <td>{{ game.start | date:'dd/MM/yyyy HH:mm' }}</td>
         <td>{{ game.end | date:'dd/MM/yyyy HH:mm' }}</td>
-        <td>{{ game.duration }}</td>
+        <td>{{ formatTime(game.duration) }}</td>
         <td>{{ game.difficulty }}</td>
         <td>{{ game.score }}</td>
         <td>{{ game.result }}</td>

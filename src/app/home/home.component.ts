@@ -5,6 +5,7 @@ import {Subscription} from "rxjs";
 import {Router} from "@angular/router";
 import {DifficultyConstant} from "../shared/constant/difficulty.constant";
 import {Game} from "../shared/model/game.model";
+import {FormatHelper} from "../shared/helper/format.helper";
 
 @Component({
   selector: 'app-home',
@@ -66,6 +67,14 @@ export class HomeComponent implements OnInit, OnDestroy {
    */
   resumeGame(){
     this.router.navigate(['/game']).then();
+  }
+
+  /**
+   * Formate le temps en minutes et secondes
+   * @param time
+   */
+  formatTime(time: number): string {
+    return FormatHelper.formatTime(time);
   }
 
   ngOnDestroy(): void {

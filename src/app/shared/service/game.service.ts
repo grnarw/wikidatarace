@@ -171,6 +171,14 @@ export class GameService implements OnDestroy {
     this.userService.updateUser(this.user);
   }
 
+  /**
+   * Permet de sauvegarder le jeu courant
+   */
+  saveGame(game: Game) {
+    // met à jour le jeu courant
+    this.gameBehaviorSubject.next(game);
+    this.userService.updateUser(this.user);
+  }
 
   /**
    * Abandonne la partie en cours

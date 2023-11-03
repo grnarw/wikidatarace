@@ -8,6 +8,8 @@
 
 <div *ngIf="game.status == 'in-progress'">
 
+  <p>Temps : {{ formatTime(currentTime) }}</p>
+
   <h1>{{ game.userPath.at(game.userPath.length - 1)!.departure.subjectLabel }}</h1>
 
   <p *ngFor="let p of game.userPath.at(game.userPath.length - 1)!.departure.elements">
