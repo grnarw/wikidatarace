@@ -44,7 +44,7 @@ export class WikidataService {
           ?value rdfs:label ?valueLabel.
         }
         FILTER(LANG(?valueLabel) = "fr").
-      } LIMIT 10
+      }
     `;
     const response = await this.executeSparqlQuery(sparqlQuery).toPromise();
     return response.results.bindings;

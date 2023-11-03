@@ -28,16 +28,22 @@
   <table>
     <thead>
       <tr>
+        <th>Début</th>
+        <th>Fin</th>
+        <th>Temps</th>
         <th>Difficulté</th>
         <th>Score</th>
-        <th>Date</th>
+        <th>Résultat</th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let game of user.games">
+      <tr *ngFor="let game of user.games.reverse()">
+        <td>{{ game.start | date:'dd/MM/yyyy HH:mm' }}</td>
+        <td>{{ game.end | date:'dd/MM/yyyy HH:mm' }}</td>
+        <td>{{ game.duration }}</td>
         <td>{{ game.difficulty }}</td>
         <td>{{ game.score }}</td>
-        <td>{{ game.start | date:'dd/MM/yyyy HH:mm' }}</td>
+        <td>{{ game.result }}</td>
       </tr>
     </tbody>
   </table>

@@ -1,16 +1,19 @@
-<p>Difficulté : {{ game.difficulty }}</p>
-<p>{{step}}</p>
+<div *ngIf="game.status == 'loading'">
+  <h3>Chargement : {{step}}</h3>
+  <div class="loader-container">
+    <div class="loader" style="width: 0{{loaderWidth}}"></div>
+  </div>
+</div>
 
 
+<div *ngIf="game.status == 'in-progress'">
 
+  <h1>{{ game.userPath.at(game.userPath.length - 1)!.departure.subjectLabel }}</h1>
 
-<p *ngFor="let elm of game.bestPath">
-  Départ : {{ elm.departure.subject }}
-  Arrivée : {{ elm.arrival.subject }}
-</p>
+  <p *ngFor="let p of game.userPath.at(game.userPath.length - 1)!.departure.elements">
+    {{ p.subject }} - {{ p.subjectLabel }} - {{ p.predicate }} - {{ p.object }}
+  </p>
 
-<!--<ul>-->
-<!--  <li *ngFor="let item of items">-->
-<!--    {{ item.subject }} - {{ item.subjectLabel }} - {{ item.predicate }} - {{ item.object }}-->
-<!--  </li>-->
-<!--</ul>-->
+  <button (click)="giveup()">Abandonner</button>
+
+</div>

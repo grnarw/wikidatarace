@@ -3,6 +3,7 @@ import {GameService} from "../shared/service/game.service";
 import {Game} from "../shared/model/game.model";
 import {DifficultyConstant} from "../shared/constant/difficulty.constant";
 import {Subscription} from "rxjs";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-game',
@@ -11,18 +12,14 @@ import {Subscription} from "rxjs";
 })
 export class GameComponent implements OnInit, OnDestroy {
 
-  step = "";
+  loaderWidth = '0';
+  step = '';
   game = new Game(DifficultyConstant.DEFAULT);
 
   private subscriptions: Subscription[] = [];
 
-  constructor(private gameService: GameService) {}
-
-  ngOnInit() {
-    this.initGame().then(() => {});
-  }
-
-  async initGame() {
+  constructor(private gameService: GameService,
+              private router: Router) {
     // récupère le dernier jeu de l'utilisateur courant
     this.gameService.updateWithLocalGame();
     const sub = this.gameService.getGame().subscribe({
@@ -31,69 +28,58 @@ export class GameComponent implements OnInit, OnDestroy {
       }
     });
     this.subscriptions.push(sub);
-
-    // préparation du jeu
-    this.step = "recupération point de départ";
-    this.gameService.initStartingPoint();
-
-    console.log(this.game);
-
-
-    this.step = "recupération point d'arrivée";
-    await this.gameService.initBestPath();
-
-    this.step = "préparation de la page"
   }
 
-  // ngOnInit() {
-  //   let sparqlQuery = `
-  //     SELECT ?property ?value ?valueLabel
-  //     WHERE {
-  //       wd:Q90 ?property ?value.
-  //       SERVICE wikibase:label {
-  //         bd:serviceParam wikibase:language "fr".
-  //         ?value rdfs:label ?valueLabel.
-  //       }
-  //       FILTER(LANG(?valueLabel) = "fr").
-  //     } LIMIT 10
-  //   `;
-  //
-  //   this.wikiDataService.executeSparqlQuery(sparqlQuery).subscribe({
-  //     next: (response) => {
-  //       response.results.bindings.forEach((elm: any) => {
-  //         this.items.push(
-  //           new Element(elm.property.value.replace("http://www.wikidata.org/prop/direct/", ""),
-  //             elm.value.value.replace("http://www.wikidata.org/entity/", ""),
-  //             elm.valueLabel.value)
-  //         );
-  //       });
-  //
-  //       // FILTER POUR NE REQUETER QUE DES PROPRIETES UNE SEULE FOIS PAS DE DOUBLONS
-  //       // TODO
-  //       this.items.forEach((elm: Element) => {
-  //         let sparqlQuery = `
-  //           SELECT ?propertyLabel WHERE {
-  //              wd:${elm.subject} rdfs:label ?propertyLabel.
-  //              FILTER(LANG(?propertyLabel) = "fr").
-  //           }
-  //         `;
-  //         console.log(sparqlQuery);
-  //         this.wikiDataService.executeSparqlQuery(sparqlQuery).subscribe({
-  //           next: (response) => {
-  //             elm.subjectLabel = response.results.bindings[0].propertyLabel.value;
-  //           },
-  //           error: (err) => {
-  //             console.error('Error executing SPARQL query: ', err);
-  //           }
-  //         });
-  //       });
-  //
-  //     },
-  //     error: (err) => {
-  //       console.error('Error executing SPARQL query: ', err);
-  //     }
-  //   });
-  // }
+  ngOnInit() {
+    if( this.game == undefined ) {
+      this.router.navigate(['/home']).then(() => {});
+    }else {
+      if ( this.game.bestPath.length == 0 ) {
+        this.initNewGame().then(() => {});
+      }else{
+        this.initResumeGame().then(() => {});
+      }
+    }
+  }
+
+  /**
+   * Initialise une nouvelle partie
+   */
+  async initNewGame() {
+
+    this.step = "Initialisation du point de départ";
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    this.loaderWidth = '25%';
+    this.gameService.initStartingPoint();
+
+    this.step = "Initialisation du point d'arrivée";
+    await this.gameService.initBestPath();
+    this.loaderWidth = '75%';
+
+    this.step = "Préparation de la page";
+    await this.gameService.initNewPage();
+    this.loaderWidth = '100%';
+    await new Promise(resolve => setTimeout(resolve, 1000));
+
+    this.gameService.updateStatus("in-progress");
+  }
+
+  /**
+   * Initialise la reprise d'une partie en cours
+   */
+  async initResumeGame() {
+    this.step = "préparation de la page"
+    await this.gameService.initPage();
+    this.step = "prêt";
+  }
+
+  /**
+   * Abandonne la partie en cours
+   */
+  giveup() {
+    this.gameService.giveup();
+    this.router.navigate(['/home']).then(() => {});
+  }
 
   ngOnDestroy(): void {
     this.subscriptions.forEach((sub) => sub.unsubscribe());

@@ -41,20 +41,8 @@ export class GameService implements OnDestroy {
    * @return Game
    */
   updateWithLocalGame() {
-    // mapping du dernier jeu de l'utilisateur courant
-    const gametmp = this.user.games[this.user.games.length - 1];
-
-    let game = new Game(gametmp.difficulty);
-    game.start = gametmp.start;
-    game.end = gametmp.end;
-    game.time = gametmp.time;
-    game.score = gametmp.score;
-    game.result = gametmp.result;
-    game.userPath = gametmp.userPath;
-    game.bestPath = gametmp.bestPath;
-
     // met à jour le jeu courant
-    this.gameBehaviorSubject.next(game);
+    this.gameBehaviorSubject.next(this.user.games[this.user.games.length - 1]);
   }
 
   /**
@@ -70,11 +58,14 @@ export class GameService implements OnDestroy {
     move.departure = elm;
     let game = this.gameBehaviorSubject.getValue();
     game.bestPath.push(move);
+    game.userPath.push(move);
+
     this.gameBehaviorSubject.next(game);
   }
 
   /**
-   * Initialise le meilleur chemin du jeu (chemin de l'ordinateur)
+   * Initialise le meilleur chemin du jeu (chemin de l'ordinateur) en fonction de la difficulté
+   * Pour trouver l'élément final
    * @return void
    */
   async initBestPath() {
@@ -111,9 +102,106 @@ export class GameService implements OnDestroy {
     }
   }
 
+  /**
+   * Initialise la page pour l'élément courant
+   * Uniquement si elle n'a pas déjà été initialisée
+   */
+  async initNewPage() {
+    //recupère l'élément courant
+    let game = this.gameBehaviorSubject.getValue();
+    let currentMove = game.userPath[game.userPath.length - 1];
+    let currentSubject = currentMove.departure.subject;
+
+    //récupère le label de l'élément courant
+    currentMove.departure.subjectLabel = await this.wikidataService.getSubjectLabel(currentSubject);
+
+    // récupère les propriétés de l'élément courant
+    const properties = await this.wikidataService.getSubjectProperties(currentSubject);
+
+    // ajoute les propriétés à l'élément courant
+    properties.forEach((elm: any) => {
+      console.log("Ajoute de : " + elm.property.value.replace("http://www.wikidata.org/prop/direct/", "") + " à " + currentMove.departure.subject);
+      currentMove.departure.elements.push(
+        new Element(elm.property.value.replace("http://www.wikidata.org/prop/direct/", ""),
+          elm.value.value.replace("http://www.wikidata.org/entity/", ""),
+          elm.valueLabel.value)
+      );
+    });
+
+    await this.initPage();
+  }
+
+  /**
+   * Initialise la page pour l'élément courant
+   * Uniquement si elle n'a pas déjà été initialisée
+   */
+  async initPage() {
+    //recupère l'élément courant
+    let game = this.gameBehaviorSubject.getValue();
+    let currentMove = game.userPath[game.userPath.length - 1];
+    let currentSubject = currentMove.departure.subject;
+
+    //récupère le label de l'élément courant
+    currentMove.departure.subjectLabel = await this.wikidataService.getSubjectLabel(currentSubject);
+
+    //extrait les propriétés sans doublons
+    let propertiesWithoutDuplicate = currentMove.departure.elements.filter((elm: Element, index: number, self: Element[]) => {
+      return index === self.findIndex((t) => (
+        t.subject === elm.subject
+      ))
+    });
+
+    // récupère les labels de chaque propriété
+    propertiesWithoutDuplicate.forEach((elm: Element) => {
+      console.log(elm.subject);
+      this.wikidataService.getSubjectLabel(elm.subject).then((label) => {
+        console.log("Ajoute de : " + label + " à " + elm.subject);
+        elm.subjectLabel = label;
+
+        // met à jour le label de chaque propriété
+        currentMove.departure.elements.forEach((elm2: Element) => {
+          if(elm.subject === elm2.subject) {
+            elm2.subjectLabel = label;
+          }
+        });
+      });
+    });
+
+    // met à jour le jeu dans le cache
+    this.userService.updateUser(this.user);
+  }
 
 
+  /**
+   * Abandonne la partie en cours
+   */
+  giveup() {
+    // récupère le jeu courant
+    let game = this.gameBehaviorSubject.getValue();
 
+    // met à jour le jeu courant
+    game.result = "Abandonné";
+    game.end = new Date();
+    this.gameBehaviorSubject.next(game);
+
+    // met à jour l'utilisateur
+    this.userService.updateUser(this.user);
+  }
+
+  /**
+   * Permet de mettre à jour le statut du jeu
+   */
+  updateStatus(status: string) {
+    // récupère le jeu courant
+    let game = this.gameBehaviorSubject.getValue();
+
+    // met à jour le jeu courant
+    game.status = status;
+    this.gameBehaviorSubject.next(game);
+
+    // met à jour l'utilisateur
+    this.userService.updateUser(this.user);
+  }
 
   ngOnDestroy(): void {
     this.subscriptions.forEach((sub) => sub.unsubscribe());

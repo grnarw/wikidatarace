@@ -63,8 +63,7 @@ export class UserService {
    * @private
    */
   private getLocalUser(): User {
-    let usertmp = JSON.parse(localStorage.getItem(StorageConstant.USER)!) as User;
-    return new User(usertmp.username, usertmp.lastDifficulty, usertmp.games);
+    return JSON.parse(localStorage.getItem(StorageConstant.USER)!) as User;
   }
 
   /**

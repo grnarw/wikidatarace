@@ -12,7 +12,4 @@ export class User {
     this.games = games;
   }
 
-  newGame(difficulty: number){
-    this.games.push(new Game(difficulty));
-  }
 }

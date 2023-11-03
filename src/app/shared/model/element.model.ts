@@ -9,5 +9,5 @@ export class Element {
   subjectLabel = ""
   predicate = ""
   object = ""
-  element: Element[] = []
+  elements: Element[] = []
 }

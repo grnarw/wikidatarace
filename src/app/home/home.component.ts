@@ -4,6 +4,7 @@ import {User} from "../shared/model/user.model";
 import {Subscription} from "rxjs";
 import {Router} from "@angular/router";
 import {DifficultyConstant} from "../shared/constant/difficulty.constant";
+import {Game} from "../shared/model/game.model";
 
 @Component({
   selector: 'app-home',
@@ -23,6 +24,9 @@ export class HomeComponent implements OnInit, OnDestroy {
     // s'abonne à l'utilisateur courant
     const sub = this.userService.getUser().subscribe(user => {
       this.user = user;
+      if(this.user.games.length != 0 && !this.user.games[this.user.games.length - 1].result){
+        this.resumeGame();
+      }
     });
     this.subscriptions.push(sub);
   }
@@ -52,8 +56,15 @@ export class HomeComponent implements OnInit, OnDestroy {
    * (appelé lors du clic sur le bouton "Nouvelle partie")
    */
   newGame(){
-    this.user.newGame(this.user.lastDifficulty);
+    this.user.games.push(new Game(this.user.lastDifficulty));
     this.userService.updateUser(this.user);
+    this.router.navigate(['/game']).then();
+  }
+
+  /**
+   * Reprend la partie en cours
+   */
+  resumeGame(){
     this.router.navigate(['/game']).then();
   }
 
