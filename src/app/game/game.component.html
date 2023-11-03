@@ -1,21 +1,63 @@
-<div *ngIf="game.status == 'loading'">
-  <h3>Chargement : {{step}}</h3>
-  <div class="loader-container">
-    <div class="loader" style="width: 0{{loaderWidth}}"></div>
+<div class="game-container">
+
+  <div class="side-bar">
+    <div class="header-side-bar">
+      <h1><i class="fa fa-user"></i>{{username}}</h1>
+    </div>
+
+    <div class="moves-history"></div>
+
+    <div class="giveup-button">
+      <!-- Bouton Abandonner -->
+      <button (click)="giveup()">Abandonner</button>
+    </div>
+
   </div>
-</div>
+
+  <div class="game-page">
+    <div class="header-game">
+      <div class="page-name">
+        <!-- Point Départ de la page -->
+        <h1>{{ game.userPath.at(game.userPath.length - 1)!.departure.subjectLabel }}</h1>
+      </div>
+      <div class="timer">
+        <!-- Timer -->
+        <h1>Temps : {{ formatTime(currentTime) }}</h1>
+        <!-- Fin Timer -->
+      </div>
+    </div>
+
+    <div class="game-property" >
+
+      <!-- Barre de chargement-->
+      <div *ngIf="game.status == 'loading'">
+        <h3>Chargement : {{step}}</h3>
+        <div class="loader-container">
+          <div class="loader" style="width: 0{{loaderWidth}}"></div>
+        </div>
+      </div>
 
 
-<div *ngIf="game.status == 'in-progress'">
+      <!-- Contenu de la page ( wikidata ) -->
+      <!--
+      <div *ngIf="game.status == 'in-progress'">
+        
+        <p *ngFor="let p of game.userPath.at(game.userPath.length - 1)!.departure.elements">
+          {{ p.subject }} - {{ p.subjectLabel }} - {{ p.predicate }} - {{ p.object }}
+        </p>
+      </div>
+      -->
+      <div class="property-card"  *ngFor="let card of propertyCards">
 
-  <p>Temps : {{ formatTime(currentTime) }}</p>
+        <h2>{{card.subjectLabel}}</h2>
+            <!--for-->
+            <p *ngFor="let p of getPropertiesOf(card.subject)">
+              <a (click)="navigateTo(p.predicate)">{{ p.object }}</a>  
+            </p>
 
-  <h1>{{ game.userPath.at(game.userPath.length - 1)!.departure.subjectLabel }}</h1>
+      </div>
 
-  <p *ngFor="let p of game.userPath.at(game.userPath.length - 1)!.departure.elements">
-    {{ p.subject }} - {{ p.subjectLabel }} - {{ p.predicate }} - {{ p.object }}
-  </p>
 
-  <button (click)="giveup()">Abandonner</button>
-
+    </div>
+  </div>
 </div>
