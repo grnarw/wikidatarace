@@ -7,12 +7,14 @@ import { HomeComponent } from './home/home.component';
 import {HttpClientModule} from "@angular/common/http";
 import { GameComponent } from './game/game.component';
 import {FormsModule} from "@angular/forms";
+import { RoundUpPipe } from './shared/pipe/round-up.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    GameComponent
+    GameComponent,
+    RoundUpPipe
   ],
   imports: [
     BrowserModule,

@@ -40,6 +40,7 @@
       <div class="timer">
         <!-- Timer -->
         <h1 *ngIf="game.status == 'in-progress'">Temps : {{ formatTime(currentTime) }}</h1>
+        <h1 *ngIf="game.status == 'in-progress'">Score : {{ game.difficulty * 1000 - ( game.duration/2 * game.userPath.length ) | roundUp }}</h1>
         <!-- Fin Timer -->
       </div>
     </div>
