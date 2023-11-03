@@ -1,0 +1,97 @@
+.home-container {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.home-border{
+  flex-grow: 1;
+  padding: 23px 20px;
+  margin: 22px 27px;
+  border: dashed 2px grey;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #c4dff9;
+}
+
+h1 {
+  font-family: 'Fredericka the Great', cursive;
+  font-weight: 400;
+  font-size: 4em;
+  letter-spacing: 4px;
+}
+
+.home-input{
+  display: inline-flex;
+  align-items: stretch;
+}
+
+.home-input label {
+  font-size: 1.5em;
+  white-space: nowrap;
+  border: 1px solid grey;
+  border-right: none;
+  background-color: #d9d9d9;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  padding: 2px 0 2px 14px;
+  font-weight: 600;
+  font-family: 'Kranky', cursive;
+}
+
+.home-input input {
+  width: 100%;
+  height: 40px;
+  border: 1px solid grey;
+  border-left: none;
+  font-size: 1.5em;
+  font-weight: 600;
+  letter-spacing: 2px;
+  margin-right: 10px;
+  background-color: #d9d9d9;
+  padding: 2px 14px 2px 7px;
+  font-family: 'Kranky', sans-serif;
+}
+
+.home-input input:focus{
+  outline: none;
+}
+
+.home-input button {
+  background-color: #2b7bac;
+  border: 1px solid #2b7bac;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.home-input button:hover {
+  opacity: .8;
+  color: white;
+}
+
+.home-input button i {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5em;
+}
+
+.slider-container {
+  display: inline-flex;
+  font-size: 1.2em;
+}
+
+.slider-container input {
+  width: 200px;
+}
+
+
+h2 {
+  margin-top: 30px;
+}

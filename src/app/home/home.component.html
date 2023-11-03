@@ -1,50 +1,56 @@
-<h1>Bienvenue sur WikiData Race</h1>
+<div class="home-container">
 
-<h2>Mon profil</h2>
-<div>
-  <label for="username">Nom d'utilisateur</label>
-  <input type="text" name="username" id="username" placeholder="MonPseudo"
-         [ngModel]="user.username" (ngModelChange)="updateUsername($event)" />
-</div>
+  <div class="home-border">
 
-<h2>Jeu</h2>
+    <h1>WikiData Race</h1>
 
-
-<div class="slider-container">
-  <input type="range" min="4" max="10" value="4" id="difficulty"
-         [ngModel]="user.lastDifficulty" (ngModelChange)="updateDifficulty($event)"/>
-  <p>Difficulté : {{ user.lastDifficulty }}</p>
-</div>
-
-<button id="new-game" (click)="newGame()">Nouvelle partie</button>
+    <div class="home-input">
+      <label for="username">Pseudo :</label>
+      <input type="text" name="username" id="username" placeholder="MonPseudo"
+             [ngModel]="user.username" (ngModelChange)="updateUsername($event)" />
+      <button id="new-game" (click)="newGame()"><i class="fa-solid fa-play"></i></button>
+    </div>
 
 
-<h2>Historique</h2>
-<div *ngIf="user.games.length === 0">
-  <p>Aucune partie jouée</p>
-</div>
 
-<div *ngIf="user.games.length > 0">
-  <table>
-    <thead>
-      <tr>
-        <th>Début</th>
-        <th>Fin</th>
-        <th>Temps</th>
-        <th>Difficulté</th>
-        <th>Score</th>
-        <th>Résultat</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let game of user.games.reverse()">
-        <td>{{ game.start | date:'dd/MM/yyyy HH:mm' }}</td>
-        <td>{{ game.end | date:'dd/MM/yyyy HH:mm' }}</td>
-        <td>{{ formatTime(game.duration) }}</td>
-        <td>{{ game.difficulty }}</td>
-        <td>{{ game.score }}</td>
-        <td>{{ game.result }}</td>
-      </tr>
-    </tbody>
-  </table>
+    <div class="slider-container">
+      <p>Difficulté :</p>
+      <input type="range" min="4" max="10" value="4" id="difficulty"
+             [ngModel]="user.lastDifficulty" (ngModelChange)="updateDifficulty($event)"/>
+       <p>{{ user.lastDifficulty }}</p>
+    </div>
+
+
+
+    <h2>Historique</h2>
+    <div *ngIf="user.games.length === 0">
+      <p>Aucune partie jouée</p>
+    </div>
+
+    <div *ngIf="user.games.length > 0">
+      <table>
+        <thead>
+        <tr>
+          <th>Début</th>
+          <th>Fin</th>
+          <th>Temps</th>
+          <th>Difficulté</th>
+          <th>Score</th>
+          <th>Résultat</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let game of user.games.reverse()">
+          <td>{{ game.start | date:'dd/MM/yyyy HH:mm' }}</td>
+          <td>{{ game.end | date:'dd/MM/yyyy HH:mm' }}</td>
+          <td>{{ formatTime(game.duration) }}</td>
+          <td>{{ game.difficulty }}</td>
+          <td>{{ game.score }}</td>
+          <td>{{ game.result }}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
 </div>
