@@ -1,60 +1,51 @@
 .home-container {
   width: 100%;
+  min-width: 1160px;
   height: 100vh;
   display: flex;
   flex-direction: column;
+  justify-content: center;
 }
 
 .home-border{
-  flex-grow: 1;
   padding: 23px 20px;
   margin: 22px 27px;
-  border: dashed 2px grey;
+  border-image: url("/assets/images/home-border.png") 135 fill / 10px / 10px stretch;
   position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   background: #c4dff9;
+  aspect-ratio: 16/9;
+  height: fit-content;
 }
 
-h1 {
-  font-family: 'Fredericka the Great', cursive;
-  font-weight: 400;
-  font-size: 4em;
-  letter-spacing: 4px;
+#home-logo {
+  background: url("/assets/images/logo.png") no-repeat center;
+  background-size: contain;
+  width: 100%;
+  height: 85px;
 }
 
 .home-input{
   display: inline-flex;
-  align-items: stretch;
-}
-
-.home-input label {
-  font-size: 1.5em;
-  white-space: nowrap;
-  border: 1px solid grey;
-  border-right: none;
-  background-color: #d9d9d9;
-  height: 40px;
-  display: flex;
+  background-color: transparent;
   align-items: center;
-  padding: 2px 0 2px 14px;
-  font-weight: 600;
-  font-family: 'Kranky', cursive;
+  gap: 15px;
 }
 
 .home-input input {
-  width: 100%;
+  aspect-ratio: 18/3;
   height: 40px;
-  border: 1px solid grey;
   border-left: none;
-  font-size: 1.5em;
+  font-size: 1.3em;
   font-weight: 600;
   letter-spacing: 2px;
   margin-right: 10px;
-  background-color: #d9d9d9;
-  padding: 2px 14px 2px 7px;
+  padding: 2px 14px 2px 65px;
   font-family: 'Kranky', sans-serif;
+  background-color: transparent;
+  border-image: url("/assets/images/input-username.png") 20 fill / 10px / 10px stretch;
 }
 
 .home-input input:focus{
@@ -62,24 +53,18 @@ h1 {
 }
 
 .home-input button {
-  background-color: #2b7bac;
-  border: 1px solid #2b7bac;
+  background-color: transparent;
   border-radius: 5px;
+  border-image: url("/assets/images/play-button.png") 30 fill / 10px / 10px stretch;
   cursor: pointer;
+  width: 30px;
+  height: 30px;
+  margin-bottom: 5px;
 }
 
 .home-input button:hover {
   opacity: .8;
   color: white;
-}
-
-.home-input button i {
-  width: 30px;
-  height: 30px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.5em;
 }
 
 .slider-container {
@@ -94,4 +79,12 @@ h1 {
 
 h2 {
   margin-top: 30px;
+}
+
+.games-history-border {
+  border-image: url("/assets/images/games-history-border.png") 30 fill / 20px / 10px stretch;
+  border-radius: 5px;
+  padding: 60px 150px;
+  margin: 10px;
+  position: relative;
 }

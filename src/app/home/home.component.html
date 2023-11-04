@@ -2,13 +2,12 @@
 
   <div class="home-border">
 
-    <h1>WikiData Race</h1>
+    <h1 id="home-logo"></h1>
 
     <div class="home-input">
-      <label for="username">Pseudo :</label>
       <input type="text" name="username" id="username" placeholder="MonPseudo"
              [ngModel]="user.username" (ngModelChange)="updateUsername($event)" />
-      <button id="new-game" (click)="newGame()"><i class="fa-solid fa-play"></i></button>
+      <button id="new-game" (click)="newGame()"></button>
     </div>
 
 
@@ -27,7 +26,7 @@
       <p>Aucune partie jouée</p>
     </div>
 
-    <div *ngIf="user.games.length > 0">
+    <div class="games-history-border" *ngIf="user.games.length > 0">
       <table>
         <thead>
         <tr>
