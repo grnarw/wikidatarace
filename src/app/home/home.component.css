@@ -1,6 +1,6 @@
 .home-container {
   width: 100%;
-  min-width: 1160px;
+  /*min-width: 1160px;*/
   height: 100vh;
   display: flex;
   flex-direction: column;
@@ -24,19 +24,19 @@
   background: url("/assets/images/logo.png") no-repeat center;
   background-size: contain;
   width: 100%;
-  height: 85px;
+  height: 5vw;
 }
 
 .home-input{
   display: inline-flex;
   background-color: transparent;
   align-items: center;
-  gap: 15px;
+  gap: 1.2vw;
 }
 
 .home-input input {
   aspect-ratio: 18/3;
-  height: 40px;
+  width: 17vw;
   border-left: none;
   font-size: 1.3em;
   font-weight: 600;
@@ -57,9 +57,9 @@
   border-radius: 5px;
   border-image: url("/assets/images/play-button.png") 30 fill / 10px / 10px stretch;
   cursor: pointer;
-  width: 30px;
-  height: 30px;
-  margin-bottom: 5px;
+  width: 2.4vw;
+  height: 2.4vw;
+  margin-bottom: 0.6vw;
 }
 
 .home-input button:hover {
@@ -70,12 +70,48 @@
 .slider-container {
   display: inline-flex;
   font-size: 1.2em;
+  align-items: center;
+  gap: 15px;
 }
 
-.slider-container input {
-  width: 200px;
+.slider-container p {
+  margin-right: 10px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  font-family: 'Kranky', sans-serif;
+  white-space: nowrap;
 }
 
+.slider-container input[type=range] {
+  appearance: none;
+  width: 250px;
+  margin: 10px 0;
+  background: transparent;
+  height: 15px;
+  border-right: 3px solid #000000cf;
+  border-left: 3px solid #000000cf;
+  position: relative;
+}
+
+.slider-container input[type=range]::after {
+  content: '';
+  position: absolute;
+  height: 3px;
+  width: 250px;
+  background: #000000cf;
+  top: 6px;
+  left: 0;
+}
+
+.slider-container input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 3px;
+  height: 20px;
+  background: #000000cf;
+  cursor: pointer;
+  z-index: 1;
+}
 
 h2 {
   margin-top: 30px;
@@ -87,4 +123,6 @@ h2 {
   padding: 60px 150px;
   margin: 10px;
   position: relative;
+  aspect-ratio: 16/9;
+  width: 15vw;
 }

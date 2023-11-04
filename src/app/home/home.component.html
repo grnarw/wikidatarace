@@ -1,5 +1,4 @@
 <div class="home-container">
-
   <div class="home-border">
 
     <h1 id="home-logo"></h1>
@@ -10,8 +9,6 @@
       <button id="new-game" (click)="newGame()"></button>
     </div>
 
-
-
     <div class="slider-container">
       <p>Difficulté :</p>
       <input type="range" min="4" max="10" value="4" id="difficulty"
@@ -20,36 +17,38 @@
     </div>
 
 
+    <div class="games-history-border">
 
-    <h2>Historique</h2>
-    <div *ngIf="user.games.length === 0">
-      <p>Aucune partie jouée</p>
+      <div *ngIf="user.games.length === 0">
+        <p>Aucune partie jouée</p>
+      </div>
+
+      <div  *ngIf="user.games.length > 0">
+        <table>
+          <thead>
+          <tr>
+            <th>Début</th>
+            <th>Fin</th>
+            <th>Temps</th>
+            <th>Difficulté</th>
+            <th>Score</th>
+            <th>Résultat</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let game of user.games.reverse()">
+            <td>{{ game.start | date:'dd/MM/yyyy HH:mm' }}</td>
+            <td>{{ game.end | date:'dd/MM/yyyy HH:mm' }}</td>
+            <td>{{ formatTime(game.duration) }}</td>
+            <td>{{ game.difficulty }}</td>
+            <td>{{ game.score }}</td>
+            <td>{{ game.result }}</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+
     </div>
 
-    <div class="games-history-border" *ngIf="user.games.length > 0">
-      <table>
-        <thead>
-        <tr>
-          <th>Début</th>
-          <th>Fin</th>
-          <th>Temps</th>
-          <th>Difficulté</th>
-          <th>Score</th>
-          <th>Résultat</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr *ngFor="let game of user.games.reverse()">
-          <td>{{ game.start | date:'dd/MM/yyyy HH:mm' }}</td>
-          <td>{{ game.end | date:'dd/MM/yyyy HH:mm' }}</td>
-          <td>{{ formatTime(game.duration) }}</td>
-          <td>{{ game.difficulty }}</td>
-          <td>{{ game.score }}</td>
-          <td>{{ game.result }}</td>
-        </tr>
-        </tbody>
-      </table>
-    </div>
   </div>
-
 </div>
