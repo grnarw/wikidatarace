@@ -1,6 +1,5 @@
 .home-container {
   width: 100%;
-  /*min-width: 1160px;*/
   height: 100vh;
   display: flex;
   flex-direction: column;
@@ -159,16 +158,30 @@ h2 {
 .game-history-panel {
   overflow-y: auto;
   height: 22.4vw;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
+  padding-right: .4vw;
 }
 
 .game-history-panel::-webkit-scrollbar {
-  display: none; /* Cela masque la barre de défilement */
+  width: 5px;
+}
+
+.game-history-panel::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.game-history-panel::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.8);
+  border-radius: 5px;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: black transparent;
 }
 
 .game-history-card-header{
   padding: 0 22px;
+  margin-right: .4vw;
   display: inline-flex;
   align-items: center;
   gap: 20px;
