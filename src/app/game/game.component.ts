@@ -188,17 +188,7 @@ export class GameComponent implements OnInit, OnDestroy {
     this.gameService.navigateTo(predicat);
 
     this.step = "Navigation vers la page suivante";
-    new Promise(resolve => setTimeout(resolve, 500)).then(() => {
-      this.loaderWidth = '50%';
-      this.step = "Préparation de la page";
-      this.gameService.initNewPage().then(() => {
-        this.loaderWidth = '100%';
-        this.initUniqueProperties();
-        new Promise(resolve => setTimeout(resolve, 1000)).then(() => {
-          this.gameService.updateStatus("in-progress");
-        });
-      });
-    });
+    this.finishLoading();
   }
 
   /**
@@ -211,20 +201,27 @@ export class GameComponent implements OnInit, OnDestroy {
       this.gameService.backstep();
 
       this.step = "Navigation vers la page précédente";
-      new Promise(resolve => setTimeout(resolve, 500)).then(() => {
-        this.loaderWidth = '50%';
-        this.step = "Préparation de la page";
-        this.gameService.initNewPage().then(() => {
-          this.loaderWidth = '100%';
-          this.initUniqueProperties();
-          new Promise(resolve => setTimeout(resolve, 1000)).then(() => {
-            this.gameService.updateStatus("in-progress");
-          });
-        });
-      });
+      this.finishLoading();
     }else{
       alert("Vous ne pouvez pas revenir en arrière");
     }
+  }
+
+  /**
+   * Permet de finir le chargement de la page
+   */
+  finishLoading(){
+    new Promise(resolve => setTimeout(resolve, 500)).then(() => {
+      this.loaderWidth = '50%';
+      this.step = "Préparation de la page";
+      this.gameService.initNewPage().then(() => {
+        this.loaderWidth = '100%';
+        this.initUniqueProperties();
+        new Promise(resolve => setTimeout(resolve, 1000)).then(() => {
+          this.gameService.updateStatus("in-progress");
+        });
+      });
+    });
   }
 
   /**

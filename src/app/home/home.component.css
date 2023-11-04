@@ -34,18 +34,31 @@
   gap: 1.2vw;
 }
 
+.home-input-border {
+  background-color: transparent;
+  border-image: url("/assets/images/input-username.png") 20 fill / 10px / 10px stretch;
+}
+
+.home-input label {
+  font-size: 1.4vw;
+  font-weight: 600;
+  letter-spacing: 2px;
+  font-family: 'Gochi Hand', sans-serif;
+  white-space: nowrap;
+  padding-left: 20px;
+}
+
 .home-input input {
   aspect-ratio: 18/3;
   width: 17vw;
-  border-left: none;
-  font-size: 1.3em;
+  font-size: 1.4vw;
   font-weight: 600;
   letter-spacing: 2px;
   margin-right: 10px;
-  padding: 2px 14px 2px 65px;
-  font-family: 'Kranky', sans-serif;
-  background-color: transparent;
-  border-image: url("/assets/images/input-username.png") 20 fill / 10px / 10px stretch;
+  padding: 2px 14px 2px 15px;
+  font-family: 'Gochi Hand', sans-serif;
+  background: transparent;
+  border: none;
 }
 
 .home-input input:focus{
@@ -55,7 +68,7 @@
 .home-input button {
   background-color: transparent;
   border-radius: 5px;
-  border-image: url("/assets/images/play-button.png") 30 fill / 10px / 10px stretch;
+  border-image: url("/assets/images/play-button.png") 12 fill / 1px / 8px stretch;
   cursor: pointer;
   width: 2.4vw;
   height: 2.4vw;
@@ -76,9 +89,10 @@
 
 .slider-container p {
   margin-right: 10px;
+  font-size: 1.4vw;
   font-weight: 600;
   letter-spacing: 2px;
-  font-family: 'Kranky', sans-serif;
+  font-family: 'Gochi Hand', sans-serif;
   white-space: nowrap;
 }
 
@@ -91,9 +105,10 @@
   border-right: 3px solid #000000cf;
   border-left: 3px solid #000000cf;
   position: relative;
+  cursor: pointer;
 }
 
-.slider-container input[type=range]::after {
+.slider-container input[type=range]::before {
   content: '';
   position: absolute;
   height: 3px;
@@ -110,7 +125,6 @@
   height: 20px;
   background: #000000cf;
   cursor: pointer;
-  z-index: 1;
 }
 
 h2 {
@@ -118,11 +132,63 @@ h2 {
 }
 
 .games-history-border {
-  border-image: url("/assets/images/games-history-border.png") 30 fill / 20px / 10px stretch;
+  border-image: url("/assets/images/games-history-border.png") 29 fill / 35px / 6px stretch;
   border-radius: 5px;
-  padding: 60px 150px;
+  padding: 60px 50px;
   margin: 10px;
   position: relative;
-  aspect-ratio: 16/9;
-  width: 15vw;
+  aspect-ratio: 26/9;
+  width: 70vw;
+}
+
+.games-history-container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.game-history-card {
+  border-image: url(/assets/images/game-history-card.png) 36 fill / 12px / 13px stretch;
+  width: 67vw;
+  aspect-ratio: 38/4;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.game-history-panel {
+  overflow-y: auto;
+  height: 22.4vw;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.game-history-panel::-webkit-scrollbar {
+  display: none; /* Cela masque la barre de défilement */
+}
+
+.game-history-card-header{
+  padding: 0 22px;
+  display: inline-flex;
+  align-items: center;
+  gap: 20px;
+  font-family: 'Gochi Hand', sans-serif;
+  font-size: 1.4vw;
+  width: 64vw;
+  justify-content: flex-start;
+}
+
+.game-history-card-header p{
+  margin: 0;
+}
+
+.game-history-card-body{
+  padding: 0 22px;
+  display: inline-flex;
+  align-items: center;
+  gap: 20px;
+  font-family: 'Gochi Hand', sans-serif;
+  font-size: 1.2vw;
+  height: 85%;
+  justify-content: flex-start;
 }

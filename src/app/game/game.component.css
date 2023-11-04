@@ -21,6 +21,7 @@
   margin: 0;
   padding: 0;
   display: inline-flex;
+  border-image: url("/assets/images/game-border.png") 30 fill / 0 / 20px stretch;
 }
 
 .side-bar{
@@ -28,9 +29,9 @@
   flex-direction: column;
   align-items: stretch;
   justify-content: space-around;
-  max-width: 20%;
-  border-right:1px solid gray;
-  min-width: 285px;
+  width: 18vw;
+  max-width: 18vw;
+  min-width: 18vw;
 }
 
 .game-page{
@@ -43,27 +44,54 @@
 
 .header-side-bar{
   display: inline-flex;
-  align-content: center;
   align-items: center;
-  justify-content: space-evenly;
-  border-bottom:1px solid gray;
+  justify-content: center;
+  height: 5vh;
+  gap: 1vw;
+  padding: 69px 2.1vw 55px 2.5vw;
+}
+
+.header-side-bar i {
+  border-image: url("/assets/images/game-user-icon.png") 8 fill / 0 / 0 stretch;
+  width: 2vw;
+  height: 2vw;
 }
 
 .header-side-bar h1{
-  font-size: 1.7em;
+  font-size: 1.4vw;
   display: inline-flex;
-  gap: 10px;
+  gap: 5px;
   align-items: center;
 }
 
 .moves-history{
+  display: flex;
   flex-grow: 1;
   overflow: auto;
+  gap: 2px;
+  padding: 0 2vw 0 2.2vw;
+  flex-direction: column;
+  align-items: center;
+}
+
+.moves-history button{
+  margin-top: 6px;
+  background: transparent;
+  border: none;
+  border-radius: 5px;
+  border-image: url(/assets/images/game-returnback-button.png) 24 fill / 13px / 5px stretch;
+  font-size: 1.5em;
+  padding: 11px 1.3vw 11px 1.3vw;
+  font-family: 'Gochi Hand', sans-serif;
+  cursor: pointer;
+}
+
+.moves-history button:hover {
+  opacity: .8;
 }
 
 .giveup-button{
-  border-top:1px solid gray;
-  padding: 10px 0;
+  padding: 11px 2vw 43px 2.4vw;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -72,24 +100,25 @@
 
 .giveup-button button{
   font-size: 1.5em;
-  padding: 10px 65px;
-  background-color: rgba(23, 54, 154, 0.765);
+  padding: 9px 2.4vw 9px 2.4vw;
+  background: transparent;
   border-radius: 5px;
   border: none;
   cursor: pointer;
+  border-image: url(/assets/images/game-giveup-button.png) 12 fill / 1px / 8px stretch;
+  font-family: 'Gochi Hand', sans-serif;
 }
 
 .giveup-button button:hover{
-  background-color: rgba(23, 54, 154, 0.965);
+  opacity: .9;
 }
-
 
 .header-game{
   display: inline-flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid gray;
-  height: 80px;
+  height: 52px;
+  padding: 39px 2.7vw 10px 0;
 }
 
 .page-name{
@@ -142,9 +171,14 @@
 }
 
 .move {
-  padding: 0 8px;
+  padding: 8px 1px 0 5px;
   margin: 8px;
-  border: 1px solid grey;
+  border: 1px solid transparent;
+  border-image: url(/assets/images/game-step-card.png) 13 fill / 11 / 20 stretch;
+}
+
+.move-container{
+  width: 100%;
 }
 
 .move.backstep{
