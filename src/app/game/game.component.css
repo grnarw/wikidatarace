@@ -289,7 +289,7 @@
   max-width: 600px;
   width: 90%;
   filter: drop-shadow(0 0 0.25rem black);
-  border-image: url('/assets/images/games-history-border.png') 15 fill / 11px / 57px stretch;
+  border-image: url('/assets/images/game-hint-border.png') 15 fill / 11px / 57px stretch;
   display: flex;
   flex-direction: column;
   align-items: center;

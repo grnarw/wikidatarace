@@ -148,7 +148,7 @@ h2 {
 }
 
 .games-history-border {
-  border-image: url("/assets/images/games-history-border.png") 29 fill / 35px / 6px stretch;
+  border-image: url("/assets/images/game-history-border.png") 29 fill / 35px / 6px stretch;
   border-radius: 5px;
   padding: 60px 50px;
   margin: 10px;

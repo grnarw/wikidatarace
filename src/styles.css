@@ -30,6 +30,6 @@ html, body {
   .error-container h1 {
     font-size: 5vw;
     padding: 6vh 7vw;
-    border-image: url(/assets/images/games-history-border.png) 36 fill / 12px / 13px stretch;
+    border-image: url('/assets/images/game-history-border.png') 36 fill / 12px / 13px stretch;
   }
 }
