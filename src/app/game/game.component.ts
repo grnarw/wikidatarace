@@ -6,6 +6,7 @@ import {Subscription} from "rxjs";
 import {Router} from "@angular/router";
 import {TimerService} from "../shared/service/timer.service";
 import {Element} from '../shared/model/element.model';
+import {Move} from "../shared/model/move.model";
 
 @Component({
   selector: 'app-game',
@@ -23,6 +24,9 @@ export class GameComponent implements OnInit, OnDestroy {
 
   currentTime = 0;
   timerSubscription!: Subscription;
+
+  hint: Move | undefined = undefined;
+  displayWin = false;
 
   private subscriptions: Subscription[] = [];
 
@@ -173,10 +177,8 @@ export class GameComponent implements OnInit, OnDestroy {
   navigateTo(predicat: string) {
     // Conditions de victoire
     if (this.game.bestPath[this.game.bestPath.length - 1].arrival.subject == predicat) {
-      this.gameService.win();
       this.stopTimer();
-      this.router.navigate(['/home']).then(() => {
-      });
+      this.displayWin = true;
       return;
     }
 
@@ -188,6 +190,15 @@ export class GameComponent implements OnInit, OnDestroy {
 
     this.step = "Navigation vers la page suivante";
     this.finishLoading();
+  }
+
+  /**
+   * Permet de finir la partie,
+   * Appelé par l'utilisateur dans la popup de victoire
+   */
+  finishGame() {
+    this.gameService.win();
+    this.router.navigate(['/home']).then(() => {});
   }
 
   /**
@@ -245,6 +256,21 @@ export class GameComponent implements OnInit, OnDestroy {
     tmp.pop();
     tmp.reverse();
     return tmp;
+  }
+
+  /**
+   * Permet au joueur d'obtenir un indice
+   */
+  useHint() {
+    if (this.game.hints > 0) {
+      this.gameService.useHint().then((move) => {
+        if (move) {
+          this.hint = Object.assign({}, move);
+        }
+      });
+    } else {
+      alert("Vous n'avez plus d'indice");
+    }
   }
 
   ngOnDestroy(): void {

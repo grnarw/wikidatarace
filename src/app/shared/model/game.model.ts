@@ -9,11 +9,15 @@ export class Game {
   duration = 0.00;
   score = 0;
   result = "";
+  hints = 0;
+  maxHints = 0;
 
   userPath: Move[] = [];
   bestPath: Move[] = [];
 
   constructor(difficulty: number) {
     this.difficulty = difficulty;
+    this.hints = difficulty;
+    this.maxHints = difficulty;
   }
 }

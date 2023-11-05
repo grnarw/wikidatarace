@@ -346,6 +346,30 @@ export class GameService implements OnDestroy {
     this.gameBehaviorSubject.next(game);
   }
 
+  /**
+   * Permet au joueur d'obtenir le prochain indice
+   * (prochain déplacement du chemin de l'ordinateur)
+   * @return void
+   */
+  async useHint() {
+    let game = this.gameBehaviorSubject.getValue();
+    if (game.hints > 0) {
+      // récupère le prochain déplacement du chemin de l'ordinateur
+      let nextMove = game.bestPath[game.maxHints-game.hints];
+
+      //met à jour les labels des sujets
+      nextMove.departure.subjectLabel = await this.wikidataService.getSubjectLabel(nextMove.departure.subject);
+      nextMove.arrival.subjectLabel = await this.wikidataService.getSubjectLabel(nextMove.arrival.subject);
+
+      // met à jour le jeu courant
+      game.score -= 500;
+      game.hints--;
+      this.gameBehaviorSubject.next(game);
+      return nextMove;
+    }
+    return;
+  }
+
   getUsername(){
     return this.user.username;
   }

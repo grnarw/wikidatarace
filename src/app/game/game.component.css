@@ -1,265 +1,331 @@
 .game-border {
-  width: calc(100vh * 14.3 / 8);
-  margin: auto;
-  border-image: url("/assets/images/game-border.png") 30 fill / 0 / 20px stretch;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  position: relative;
+    width: calc(100vh * 14.3 / 8);
+    margin: auto;
+    border-image: url("/assets/images/game-border.png") 30 fill / 0 / 20px stretch;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
 
-  max-width: 1965px !important;
-  max-height: 1120px !important;
+    max-width: 1965px !important;
+    max-height: 1120px !important;
 }
 
 .game-border::before {
-  content: "";
-  display: block;
-  padding-top: 52.50%;
+    content: "";
+    display: block;
+    padding-top: 52.50%;
 }
 
 .game-border > * {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  margin: auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
 }
 
 .game-container {
-  margin: 0;
-  padding: 0;
-  display: inline-flex;
+    margin: 0;
+    padding: 0;
+    display: inline-flex;
 }
 
 .loader-container {
-  width: 100%;
-  height: 25px;
-  background-color: lightgray;
+    width: 100%;
+    height: 25px;
+    background-color: lightgray;
 }
 
 .loader {
-  height: 100%;
-  background-color: green;
-  transition: width 1s;
+    height: 100%;
+    background-color: green;
+    transition: width 1s;
 }
 
 .loader-content {
-  width: 60%;
-  text-align: center;
+    width: 60%;
+    text-align: center;
 }
 
 .side-bar {
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  justify-content: space-around;
-  width: 16.5%;
-  /*padding: 1.5% 0 1.5% 2%;*/
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: space-around;
+    width: 16.5%;
+    /*padding: 1.5% 0 1.5% 2%;*/
 }
 
 .game-page {
-  flex-grow: 1;
-  display: flex;
-  align-items: stretch;
-  flex-direction: column;
-  width: 83.5%;
+    flex-grow: 1;
+    display: flex;
+    align-items: stretch;
+    flex-direction: column;
+    width: 83.5%;
 }
 
 
 .header-side-bar {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  height: 6%;
-  gap: 5%;
-  min-height: 46px;
-  padding: 22% 6% 19% 14%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 6%;
+    gap: 5%;
+    min-height: 46px;
+    padding: 22% 6% 19% 14%;
 }
 
 .header-side-bar i {
-  border-image: url("/assets/images/game-user-icon.png") 8 fill / 0 / 0 stretch;
-  width: 20%;
-  aspect-ratio: 1;
-  min-width: 35px;
+    border-image: url("/assets/images/game-user-icon.png") 8 fill / 0 / 0 stretch;
+    width: 20%;
+    aspect-ratio: 1;
+    min-width: 35px;
 }
 
 .header-side-bar h1 {
-  font-size: min(1.4vw, 30px);
-  display: inline-flex;
-  gap: 5px;
-  align-items: center;
+    font-size: min(1.4vw, 30px);
+    display: inline-flex;
+    gap: 5px;
+    align-items: center;
 }
 
 .moves-history {
-  display: flex;
-  flex-grow: 1;
-  overflow: auto;
-  gap: 2%;
-  padding: 0 0 0 13%;
-  flex-direction: column;
-  align-items: center;
-  max-height: 65%;
+    display: flex;
+    flex-grow: 1;
+    overflow: auto;
+    gap: 2%;
+    padding: 0 0 0 13%;
+    flex-direction: column;
+    align-items: center;
+    max-height: 65%;
 }
 
 .moves-history button {
-  margin-top: 6px;
-  background: transparent;
-  border: none;
-  border-radius: 5px;
-  border-image: url(/assets/images/game-returnback-button.png) 24 fill / 13px / 5px stretch;
-  font-size: min(1.3vw, 27px);
-  padding: 11px 1.3vw 11px 1.3vw;
-  font-family: 'Gochi Hand', sans-serif;
-  cursor: pointer;
-  filter: drop-shadow(0 0 0.25rem black);
+    margin-top: 6px;
+    background: transparent;
+    border: none;
+    border-radius: 5px;
+    border-image: url(/assets/images/game-returnback-button.png) 24 fill / 13px / 5px stretch;
+    font-size: min(1.3vw, 27px);
+    padding: 11px 1.3vw 11px 1.3vw;
+    font-family: 'Gochi Hand', sans-serif;
+    cursor: pointer;
+    filter: drop-shadow(0 0 0.25rem black);
 }
 
 .moves-history button:hover {
-  opacity: .8;
+    opacity: .8;
 }
 
 .giveup-button {
-  padding: 2.6% 2% 13% 11%;
-  height: 11%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  align-items: center;
+    padding: 2.6% 2% 13% 11%;
+    height: 11%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
 }
 
 .giveup-button p {
-  font-size: min(1.1vw, 22px);
-  margin: 0 0 0 6%;
+    font-size: min(1.1vw, 22px);
+    margin: 0 0 0 6%;
 }
 
 .giveup-button button {
-  font-size: min(1.3vw, 27px);
-  padding: 2% 17% 2% 17%;
-  background: transparent;
-  border-radius: 5px;
-  border: none;
-  cursor: pointer;
-  border-image: url(/assets/images/game-giveup-button.png) 12 fill / 1px / 8px stretch;
-  font-family: 'Gochi Hand', sans-serif;
-  filter: drop-shadow(0 0 0.25rem black);
+    font-size: min(1.3vw, 27px);
+    padding: 2% 17% 2% 17%;
+    background: transparent;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    border-image: url(/assets/images/game-giveup-button.png) 12 fill / 1px / 8px stretch;
+    font-family: 'Gochi Hand', sans-serif;
+    filter: drop-shadow(0 0 0.25rem black);
 }
 
 .giveup-button button:hover {
-  opacity: .9;
+    opacity: .9;
 }
 
 .header-game {
-  display: inline-flex;
-  justify-content: space-between;
-  align-items: center;
-  height: 10%;
-  /*padding: 2.3% 2.3% 1.1% 0;*/
+    display: inline-flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 10%;
+    /*padding: 2.3% 2.3% 1.1% 0;*/
 }
 
 .page-name {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-grow: 1;
-  padding: 3% 0 1% 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+    padding: 3% 0 1% 0;
 }
 
 .page-name h1 {
-  font-size: min(1.7vw, 33px);
-  text-transform: capitalize;
-  margin: 0;
+    font-size: min(1.7vw, 33px);
+    text-transform: capitalize;
+    margin: 0;
+}
+
+.hints {
+    padding: 3% 0 0.9% 2%;
+    width: 135px;
+}
+
+.hints p {
+    font-size: min(1.2vw, 25px);
+    margin: 0;
+    white-space: nowrap;
+    padding: 0 0;
+    font-weight: 700;
 }
 
 .timer {
-  padding: 3% 3% 0.9% 0;
-  width: 135px;
+    padding: 3% 3% 0.9% 0;
+    width: 135px;
 }
 
 .timer p {
-  font-size: min(1.2vw, 25px);
-  margin: 0;
-  white-space: nowrap;
-  padding: 0 0;
-  font-weight: 700;
+    font-size: min(1.2vw, 25px);
+    margin: 0;
+    white-space: nowrap;
+    padding: 0 0;
+    font-weight: 700;
 }
 
 .game-property {
-  padding: 1% 3% 1% 1%;
-  height: 82%;
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
+    padding: 1% 3% 1% 1%;
+    height: 82%;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
 }
 
 .property-card-container {
-  overflow: auto;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  gap: 30px;
-  justify-content: space-around;
-  height: 100%;
-  align-content: flex-start;
+    overflow: auto;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 30px;
+    justify-content: space-around;
+    height: 100%;
+    align-content: flex-start;
 }
 
 .property-card {
-  background: lightgray;
-  border-radius: 25px;
-  padding: 5px 30px;
-  height: fit-content;
+    background: lightgray;
+    border-radius: 25px;
+    padding: 5px 30px;
+    height: fit-content;
 }
 
 .property-card h2 {
-  font-size: min(1.5vw, 31px);
-  text-align: center;
+    font-size: min(1.5vw, 31px);
+    text-align: center;
 }
 
 .property-card p {
-  cursor: pointer;
+    cursor: pointer;
 }
 
 .property-card p::first-letter, .property-card h2::first-letter {
-  text-transform: uppercase;
+    text-transform: uppercase;
 }
 
 .move {
-  padding: 8px 1px 0 5px;
-  margin: 8px;
-  border: 1px solid transparent;
-  border-image: url(/assets/images/game-step-card.png) 13 fill / 11 / 20 stretch;
-  filter: drop-shadow(0 0 0.25rem black);
+    padding: 8px 1px 0 5px;
+    margin: 8px;
+    border: 1px solid transparent;
+    border-image: url(/assets/images/game-step-card.png) 13 fill / 11 / 20 stretch;
+    filter: drop-shadow(0 0 0.25rem black);
 }
 
 .move.backstep {
-  filter: invert(1) drop-shadow(0 0 0.25rem black);
+    filter: invert(1) drop-shadow(0 0 0.25rem black);
 }
 
 .move-container {
-  width: 95%;
+    width: 95%;
 }
 
 .moves-history::-webkit-scrollbar, .property-card-container::-webkit-scrollbar {
-  width: 5px;
+    width: 5px;
 }
 
 .moves-history::-webkit-scrollbar-track, .property-card-container::-webkit-scrollbar-track {
-  background: transparent;
+    background: transparent;
 }
 
 .moves-history::-webkit-scrollbar-thumb, .property-card-container::-webkit-scrollbar-thumb {
-  background: rgba(0, 0, 0, 0.5);
-  border-radius: 5px;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 5px;
 }
 
 * {
-  scrollbar-width: thin;
-  scrollbar-color: black transparent;
+    scrollbar-width: thin;
+    scrollbar-color: black transparent;
+}
+
+.popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.popup-content {
+    z-index: 1001;
+    max-width: 600px;
+    width: 90%;
+    filter: drop-shadow(0 0 0.25rem black);
+    border-image: url(/assets/images/games-history-border.png) 15 fill / 11px / 57px stretch;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 25px;
+}
+
+.popup-content h1 {
+    font-size: min(2.5vw, 50px);
+    text-align: center;
+    margin: 0;
+}
+
+.popup-content p {
+    font-size: min(1.5vw, 31px);
+    text-align: center;
+    margin: 0;
+}
+
+.popup-content button {
+    cursor: pointer;
+    margin-top: 3%;
+    height: 4%;
+    border: none;
+    width: 15%;
+    font-family: 'Gochi Hand', sans-serif;
+    font-size: min(1.5vw, 31px);
+    background: none;
+    border-image: url(/assets/images/game-returnback-button.png) 5 fill / 48px / 65px stretch;
+}
+
+.popup-content button:hover {
+    opacity: .8;
 }
 
 @media (max-aspect-ratio: 16/9) {
-  .game-border {
-    aspect-ratio: 16/9;
-    width: 100vw;
-  }
+    .game-border {
+        aspect-ratio: 16/9;
+        width: 100vw;
+    }
 }
