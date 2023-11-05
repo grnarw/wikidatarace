@@ -5,7 +5,6 @@ import {Subscription} from "rxjs";
 import {Router} from "@angular/router";
 import {DifficultyConstant} from "../shared/constant/difficulty.constant";
 import {Game} from "../shared/model/game.model";
-import {FormatHelper} from "../shared/helper/format.helper";
 
 @Component({
   selector: 'app-home',
@@ -19,13 +18,14 @@ export class HomeComponent implements OnInit, OnDestroy {
   private subscriptions: Subscription[] = [];
 
   constructor(private userService: UserService,
-              private router: Router) {  }
+              private router: Router) {
+  }
 
   ngOnInit() {
     // s'abonne à l'utilisateur courant
     const sub = this.userService.getUser().subscribe(user => {
       this.user = user;
-      if(this.user.games.length != 0 && !this.user.games[this.user.games.length - 1].result){
+      if (this.user.games.length != 0 && !this.user.games[this.user.games.length - 1].result) {
         this.resumeGame();
       }
     });
@@ -56,7 +56,7 @@ export class HomeComponent implements OnInit, OnDestroy {
    * Crée une nouvelle partie
    * (appelé lors du clic sur le bouton "Nouvelle partie")
    */
-  newGame(){
+  newGame() {
     this.user.games.push(new Game(this.user.lastDifficulty));
     this.userService.updateUser(this.user);
     this.router.navigate(['/game']).then();
@@ -65,16 +65,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   /**
    * Reprend la partie en cours
    */
-  resumeGame(){
+  resumeGame() {
     this.router.navigate(['/game']).then();
-  }
-
-  /**
-   * Formate le temps en minutes et secondes
-   * @param time
-   */
-  formatTime(time: number): string {
-    return FormatHelper.formatTime(time);
   }
 
   ngOnDestroy(): void {

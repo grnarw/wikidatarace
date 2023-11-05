@@ -1,22 +1,37 @@
-.home-container {
-  width: 100%;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.home-border{
-  padding: 23px 20px;
-  margin: 22px 27px;
+.home-border {
+  width: calc(100vh * 16 / 9);
+  margin: auto;
   border-image: url("/assets/images/home-border.png") 135 fill / 10px / 10px stretch;
-  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: #c4dff9;
-  aspect-ratio: 16/9;
-  height: fit-content;
+  position: relative;
+
+  max-width: 1920px !important;
+  max-height: 1080px !important;
+}
+
+.home-border::before {
+  content: "";
+  display: block;
+  padding-top: 56.25%;
+}
+
+.home-border > * {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+}
+
+.home-container {
+  flex-direction: column;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
 
 #home-logo {
@@ -24,9 +39,10 @@
   background-size: contain;
   width: 100%;
   height: 5vw;
+  filter: drop-shadow(3px 3px 3px gray);
 }
 
-.home-input{
+.home-input {
   display: inline-flex;
   background-color: transparent;
   align-items: center;
@@ -36,10 +52,11 @@
 .home-input-border {
   background-color: transparent;
   border-image: url("/assets/images/input-username.png") 20 fill / 10px / 10px stretch;
+  filter: drop-shadow(2px 4px 6px grey);
 }
 
 .home-input label {
-  font-size: 1.4vw;
+  font-size: min(1.4vw, 30px);
   font-weight: 600;
   letter-spacing: 2px;
   font-family: 'Gochi Hand', sans-serif;
@@ -50,7 +67,7 @@
 .home-input input {
   aspect-ratio: 18/3;
   width: 17vw;
-  font-size: 1.4vw;
+  font-size: min(1.4vw, 30px);
   font-weight: 600;
   letter-spacing: 2px;
   margin-right: 10px;
@@ -60,7 +77,7 @@
   border: none;
 }
 
-.home-input input:focus{
+.home-input input:focus {
   outline: none;
 }
 
@@ -81,14 +98,14 @@
 
 .slider-container {
   display: inline-flex;
-  font-size: 1.2em;
+  font-size: min(1.2vw, 25px);
   align-items: center;
   gap: 15px;
 }
 
 .slider-container p {
   margin-right: 10px;
-  font-size: 1.4vw;
+  font-size: min(1.4vw, 30px);
   font-weight: 600;
   letter-spacing: 2px;
   font-family: 'Gochi Hand', sans-serif;
@@ -136,11 +153,13 @@ h2 {
   padding: 60px 50px;
   margin: 10px;
   position: relative;
-  aspect-ratio: 26/9;
-  width: 70vw;
+  width: calc(70vh * 16 / 9);
+  max-width: 1420px;
+  max-height: 400px;
+  filter: drop-shadow(2px 2px 12px grey);
 }
 
-.games-history-container{
+.games-history-container {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -148,8 +167,8 @@ h2 {
 
 .game-history-card {
   border-image: url(/assets/images/game-history-card.png) 36 fill / 12px / 13px stretch;
-  width: 67vw;
-  aspect-ratio: 38/4;
+  width: calc(13vh * 38 / 4);
+  max-width: 1350px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -159,6 +178,9 @@ h2 {
   overflow-y: auto;
   height: 22.4vw;
   padding-right: .4vw;
+  max-height: 375px;
+  position: relative;
+  filter: drop-shadow(2px 3px 3px black);
 }
 
 .game-history-panel::-webkit-scrollbar {
@@ -179,29 +201,50 @@ h2 {
   scrollbar-color: black transparent;
 }
 
-.game-history-card-header{
+.game-history-card-header {
   padding: 0 22px;
   margin-right: .4vw;
   display: inline-flex;
   align-items: center;
   gap: 20px;
   font-family: 'Gochi Hand', sans-serif;
-  font-size: 1.4vw;
-  width: 64vw;
+  font-size: min(1.4vw, 30px);
+  width: calc(12.5vh * 38 / 4);
+  max-width: 1285px;
   justify-content: flex-start;
 }
 
-.game-history-card-header p{
+.game-history-card-header p {
   margin: 0;
 }
 
-.game-history-card-body{
+.game-history-card-body {
   padding: 0 22px;
   display: inline-flex;
   align-items: center;
   gap: 20px;
   font-family: 'Gochi Hand', sans-serif;
-  font-size: 1.2vw;
+  font-size: min(1.2vw, 25px);
   height: 85%;
   justify-content: flex-start;
+}
+
+@media (max-aspect-ratio: 16/9) {
+  .home-border {
+    aspect-ratio: 16/9;
+    width: 100vw;
+  }
+
+  .games-history-border {
+    aspect-ratio: 26/9;
+    width: 70vw;
+  }
+
+  .game-history-card {
+    width: 100%;
+  }
+
+  .game-history-card-header {
+    width: 86%;
+  }
 }

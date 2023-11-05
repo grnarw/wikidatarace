@@ -8,13 +8,15 @@ import {HttpClientModule} from "@angular/common/http";
 import { GameComponent } from './game/game.component';
 import {FormsModule} from "@angular/forms";
 import { RoundUpPipe } from './shared/pipe/round-up.pipe';
+import {TimePipe} from "./shared/pipe/time.pipe";
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     GameComponent,
-    RoundUpPipe
+    RoundUpPipe,
+    TimePipe
   ],
   imports: [
     BrowserModule,

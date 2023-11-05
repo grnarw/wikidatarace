@@ -1,70 +1,73 @@
-<div class="game-container">
+<div class="game-border">
+  <div class="game-container">
 
-  <div class="side-bar">
-    <div class="header-side-bar">
-      <i class="user-icon"></i>
-      <h1>{{username}}</h1>
-    </div>
-
-    <div style="flex-grow: 1" *ngIf="game.status == 'loading'" id="spacer"></div>
-    <div class="moves-history" *ngIf="game.status == 'in-progress' || game.status == 'nav-loading'">
-      <button (click)="backstep()" [disabled]="game.status == 'nav-loading'">Retour arrière</button>
-
-      <div class="move-container" *ngFor="let move of getMovesHistory()">
-        <div class="move" [ngClass]="{'backstep': move.backstep}">
-          <p>
-            De
-            <b style="text-transform: capitalize">{{ move.departure.subjectLabel }}</b>
-            à
-            <b style="text-transform: capitalize">{{ move.arrival.subjectLabel }}</b>
-          </p>
-        </div>
+    <div class="side-bar">
+      <div class="header-side-bar">
+        <i class="user-icon"></i>
+        <h1>{{username}}</h1>
       </div>
-    </div>
 
-    <div class="giveup-button">
-      <!-- Bouton Abandonner -->
-      <p>Page cible : {{ game.bestPath.at(game.bestPath.length-1)?.arrival?.subjectLabel }} </p>
+      <div style="flex-grow: 1" *ngIf="game.status == 'loading'" id="spacer"></div>
+      <div class="moves-history" *ngIf="game.status == 'in-progress' || game.status == 'nav-loading'">
+        <button (click)="backstep()" [disabled]="game.status == 'nav-loading'">Retour arrière</button>
 
-      <button (click)="giveup()">Abandonner</button>
-    </div>
-
-  </div>
-
-  <div class="game-page">
-    <div class="header-game">
-      <div class="page-name">
-        <!-- Point Départ de la page -->
-        <h1
-          *ngIf="game.status == 'in-progress'">{{ game.userPath.at(game.userPath.length - 1)!.departure.subjectLabel }}</h1>
-      </div>
-      <div class="timer">
-        <!-- Timer -->
-        <p *ngIf="game.status == 'in-progress'">Temps : {{ formatTime(currentTime) }}</p>
-        <p *ngIf="game.status == 'in-progress'">Score : {{ game.difficulty * 1000 - ( game.duration/2 * game.userPath.length ) | roundUp }}</p>
-        <!-- Fin Timer -->
-      </div>
-    </div>
-
-    <div class="game-property">
-
-      <!-- Barre de chargement-->
-      <div *ngIf="game.status == 'loading' || game.status == 'nav-loading'" class="loader-content">
-        <h3>Chargement : {{step}}</h3>
-        <div class="loader-container">
-          <div class="loader" style="width: 0{{loaderWidth}}"></div>
+        <div class="move-container" *ngFor="let move of getMovesHistory()">
+          <div class="move" [ngClass]="{'backstep': move.backstep}">
+            <p>
+              De
+              <b style="text-transform: capitalize">{{ move.departure.subjectLabel }}</b>
+              à
+              <b style="text-transform: capitalize">{{ move.arrival.subjectLabel }}</b>
+            </p>
+          </div>
         </div>
       </div>
 
-      <div class="property-card-container" *ngIf="game.status == 'in-progress'">
-        <div class="property-card" *ngFor="let card of propertyCards">
-          <h2>{{card.subjectLabel}}</h2>
-          <p *ngFor="let p of getPropertiesOf(card.subject)" (click)="navigateTo(p.predicate)">
-            {{ p.object }}
-          </p>
+      <div class="giveup-button">
+        <!-- Bouton Abandonner -->
+        <p>Page cible : {{ game.bestPath.at(game.bestPath.length - 1)?.arrival?.subjectLabel }} </p>
+
+        <button (click)="giveup()">Abandonner</button>
+      </div>
+
+    </div>
+
+    <div class="game-page">
+      <div class="header-game">
+        <div class="page-name">
+          <!-- Point Départ de la page -->
+          <h1
+            *ngIf="game.status == 'in-progress'">{{ game.userPath.at(game.userPath.length - 1)!.departure.subjectLabel }}</h1>
+        </div>
+        <div class="timer">
+          <!-- Timer -->
+          <p *ngIf="game.status == 'in-progress' || game.status == 'nav-loading'">Temps : {{ currentTime | formatTime }}</p>
+          <p *ngIf="game.status == 'in-progress' || game.status == 'nav-loading'">Score
+            : {{ game.difficulty * 1000 - (game.duration / 2 * game.userPath.length) | roundUp }}</p>
+          <!-- Fin Timer -->
         </div>
       </div>
 
+      <div class="game-property">
+
+        <!-- Barre de chargement-->
+        <div *ngIf="game.status == 'loading' || game.status == 'nav-loading'" class="loader-content">
+          <h3>Chargement : {{step}}</h3>
+          <div class="loader-container">
+            <div class="loader" style="width: 0{{loaderWidth}}"></div>
+          </div>
+        </div>
+
+        <div class="property-card-container" *ngIf="game.status == 'in-progress'">
+          <div class="property-card" *ngFor="let card of propertyCards">
+            <h2>{{card.subjectLabel}}</h2>
+            <p *ngFor="let p of getPropertiesOf(card.subject)" (click)="navigateTo(p.predicate)">
+              {{ p.object }}
+            </p>
+          </div>
+        </div>
+
+      </div>
     </div>
   </div>
 </div>

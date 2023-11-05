@@ -5,8 +5,7 @@ import {DifficultyConstant} from "../shared/constant/difficulty.constant";
 import {Subscription} from "rxjs";
 import {Router} from "@angular/router";
 import {TimerService} from "../shared/service/timer.service";
-import {FormatHelper} from "../shared/helper/format.helper";
-import { Element } from '../shared/model/element.model';
+import {Element} from '../shared/model/element.model';
 
 @Component({
   selector: 'app-game',
@@ -41,16 +40,19 @@ export class GameComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    if( this.game == undefined ) {
-      this.router.navigate(['/home']).then(() => {});
-    }else {
+    if (this.game == undefined) {
+      this.router.navigate(['/home']).then(() => {
+      });
+    } else {
       //récupérer le pseudo du joueur
-      this.username=this.gameService.getUsername();
+      this.username = this.gameService.getUsername();
 
-      if ( this.game.bestPath.length == 0 ) {
-        this.initNewGame().then(() => {});
-      }else{
-        this.initResumeGame().then(() => {});
+      if (this.game.bestPath.length == 0) {
+        this.initNewGame().then(() => {
+        });
+      } else {
+        this.initResumeGame().then(() => {
+        });
       }
     }
   }
@@ -114,7 +116,8 @@ export class GameComponent implements OnInit, OnDestroy {
    */
   giveup() {
     this.gameService.giveup();
-    this.router.navigate(['/home']).then(() => {});
+    this.router.navigate(['/home']).then(() => {
+    });
   }
 
   /**
@@ -142,17 +145,9 @@ export class GameComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Formate le temps en minutes et secondes
-   * @param time
-   */
-  formatTime(time: number): string {
-    return FormatHelper.formatTime(time);
-  }
-
-  /**
    * Permet de récupérer l'élément courant
    */
-  getCurrentElement(){
+  getCurrentElement() {
     return this.game.userPath[this.game.userPath.length - 1].departure;
   }
 
@@ -160,10 +155,10 @@ export class GameComponent implements OnInit, OnDestroy {
    * Permet de récupérer les propriétés d'un sujet
    * @param subject - sujet dont on veut récupérer les propriétés
    */
-  getPropertiesOf(subject : string){
+  getPropertiesOf(subject: string) {
     let tempList: Element[] = [];
     this.getCurrentElement().elements.forEach((element) => {
-      if(element.subject == subject){
+      if (element.subject == subject) {
         tempList.push(element);
       }
     });
@@ -175,14 +170,18 @@ export class GameComponent implements OnInit, OnDestroy {
    * Permet de naviguer vers une nouvelle page
    * @param predicat - predicat de la nouvelle page
    */
-  navigateTo(predicat : string){
-    if ( this.game.bestPath[this.game.bestPath.length - 1].arrival.subject == predicat ) {
+  navigateTo(predicat: string) {
+    // Conditions de victoire
+    if (this.game.bestPath[this.game.bestPath.length - 1].arrival.subject == predicat) {
       this.gameService.win();
       this.stopTimer();
-      this.router.navigate(['/home']).then(() => {});
+      this.router.navigate(['/home']).then(() => {
+      });
       return;
     }
 
+    // Sinon on continue
+    this.stopTimer();
     this.loaderWidth = '0';
     this.gameService.updateStatus("nav-loading");
     this.gameService.navigateTo(predicat);
@@ -195,14 +194,15 @@ export class GameComponent implements OnInit, OnDestroy {
    * Permet de revenir en arrière
    */
   backstep() {
-    if ( this.gameService.canBackstep() ) {
+    if (this.gameService.canBackstep()) {
+      this.stopTimer();
       this.loaderWidth = '0';
       this.gameService.updateStatus("nav-loading");
       this.gameService.backstep();
 
       this.step = "Navigation vers la page précédente";
       this.finishLoading();
-    }else{
+    } else {
       alert("Vous ne pouvez pas revenir en arrière");
     }
   }
@@ -210,7 +210,7 @@ export class GameComponent implements OnInit, OnDestroy {
   /**
    * Permet de finir le chargement de la page
    */
-  finishLoading(){
+  finishLoading() {
     new Promise(resolve => setTimeout(resolve, 500)).then(() => {
       this.loaderWidth = '50%';
       this.step = "Préparation de la page";
@@ -219,6 +219,7 @@ export class GameComponent implements OnInit, OnDestroy {
         this.initUniqueProperties();
         new Promise(resolve => setTimeout(resolve, 1000)).then(() => {
           this.gameService.updateStatus("in-progress");
+          this.startTimer();
         });
       });
     });
@@ -227,7 +228,7 @@ export class GameComponent implements OnInit, OnDestroy {
   /**
    * Permet d'initialiser la liste de propriétés sans doublons
    */
-  initUniqueProperties(){
+  initUniqueProperties() {
     // Trie des properties, extrait les propriétés sans doublons
     this.propertyCards = this.getCurrentElement().elements.filter((thing, i, arr) => {
       return arr.findIndex(t => t.subject === thing.subject) === i;
@@ -238,7 +239,7 @@ export class GameComponent implements OnInit, OnDestroy {
    * Permet de récupérer l'historique des mouvements précédents
    * @returns - l'historique des mouvements précédents
    */
-  getMovesHistory(){
+  getMovesHistory() {
     // fais une copie complète de la liste des mouvements
     let tmp = Object.assign([], this.game.userPath);
     tmp.pop();

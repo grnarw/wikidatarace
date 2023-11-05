@@ -1,5 +1,5 @@
-<div class="home-container">
-  <div class="home-border">
+<div class="home-border">
+  <div class="home-container">
 
     <h1 id="home-logo"></h1>
 
@@ -7,7 +7,7 @@
       <div class="home-input-border">
         <label for="username">Pseudo :</label>
         <input type="text" name="username" id="username" placeholder="MonPseudo"
-               [ngModel]="user.username" (ngModelChange)="updateUsername($event)" />
+               [ngModel]="user.username" (ngModelChange)="updateUsername($event)"/>
       </div>
       <button id="new-game" (click)="newGame()"></button>
     </div>
@@ -16,7 +16,7 @@
       <p>Difficulté :</p>
       <input type="range" min="4" max="10" value="4" id="difficulty"
              [ngModel]="user.lastDifficulty" (ngModelChange)="updateDifficulty($event)"/>
-       <p>{{ user.lastDifficulty }}</p>
+      <p>{{ user.lastDifficulty }}</p>
     </div>
 
 
@@ -29,13 +29,13 @@
       <div *ngIf="user.games.length" class="games-history-container">
 
         <div class="game-history-card-header">
-            <p style="width: 11vw;">Date</p>
-            <p style="width: 12vw;">Départ</p>
-            <p style="width: 12vw;">Arrivée</p>
-            <p style="width: 4vw;">Temps</p>
-            <p style="width: 5vw;">Difficulté</p>
-            <p style="width: 3vw;">Score</p>
-            <p>Résultat</p>
+          <p style="width: 11vw;">Date</p>
+          <p style="width: 12vw;">Départ</p>
+          <p style="width: 12vw;">Arrivée</p>
+          <p style="width: 4vw;">Temps</p>
+          <p style="width: 5vw;">Difficulté</p>
+          <p style="width: 3vw;">Score</p>
+          <p>Résultat</p>
         </div>
 
         <div class="game-history-panel">
@@ -43,43 +43,16 @@
             <div class="game-history-card-body">
               <p style="width: 11vw;">{{ game.start | date:'dd/MM/yyyy HH:mm' }}</p>
               <p style="width: 12vw;">{{ game.userPath.at(0)?.departure?.subjectLabel }}</p>
-              <p style="width: 12vw;">{{ game.bestPath.at(game.bestPath.length-1)?.arrival?.subjectLabel }}</p>
-              <p style="width: 4vw;">{{ formatTime(game.duration) }}</p>
+              <p style="width: 12vw;">{{ game.bestPath.at(game.bestPath.length - 1)?.arrival?.subjectLabel }}</p>
+              <p style="width: 4vw;">{{ game.duration | formatTime }}</p>
               <p style="width: 5vw;">{{ game.difficulty }}</p>
-              <p style="width: 3vw;">{{ game.score }}</p>
+              <p style="width: 3vw;">{{ game.score | roundUp }}</p>
               <p>{{ game.result }}</p>
             </div>
           </div>
         </div>
 
-
       </div>
-
-
-<!--      <div  *ngIf="user.games.length > 0">-->
-<!--        <table>-->
-<!--          <thead>-->
-<!--          <tr>-->
-<!--            <th>Début</th>-->
-<!--            <th>Fin</th>-->
-<!--            <th>Temps</th>-->
-<!--            <th>Difficulté</th>-->
-<!--            <th>Score</th>-->
-<!--            <th>Résultat</th>-->
-<!--          </tr>-->
-<!--          </thead>-->
-<!--          <tbody>-->
-<!--          <tr *ngFor="let game of user.games.reverse()">-->
-<!--            <td>{{ game.start | date:'dd/MM/yyyy HH:mm' }}</td>-->
-<!--            <td>{{ game.end | date:'dd/MM/yyyy HH:mm' }}</td>-->
-<!--            <td>{{ formatTime(game.duration) }}</td>-->
-<!--            <td>{{ game.difficulty }}</td>-->
-<!--            <td>{{ game.score }}</td>-->
-<!--            <td>{{ game.result }}</td>-->
-<!--          </tr>-->
-<!--          </tbody>-->
-<!--        </table>-->
-<!--      </div>-->
 
     </div>
 
