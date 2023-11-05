@@ -1,5 +1,4 @@
 import {Injectable} from "@angular/core";
-import {StorageConstant} from "../constant/storage.constant";
 
 @Injectable({
   providedIn: 'root'
@@ -31,11 +30,7 @@ export class StorageService {
       value: value
     }
 
-    if (StorageConstant.ENCODE) {
-      localStorage.setItem(key, btoa(JSON.stringify(customObject)));
-    } else {
-      localStorage.setItem(key, JSON.stringify(customObject));
-    }
+    localStorage.setItem(key, JSON.stringify(customObject));
   }
 
   /**
@@ -45,19 +40,9 @@ export class StorageService {
    */
   getItem(key: string, version: string): any {
     //récupère l'objet custom du localStorage
-    let strObject = localStorage.getItem(key)!;
-    if (strObject == null ) {
-      return null;
-    }
+    let customObject = JSON.parse(localStorage.getItem(key)!);
 
-    // décode l'objet si besoin
-    if ( this.isBase64(strObject) ) {
-      strObject = atob(strObject);
-    }
-
-    let customObject = JSON.parse(strObject);
-
-    if (customObject.version == null || customObject.value == null || customObject.version != version) {
+    if (customObject == null || customObject.version == null || customObject.value == null || customObject.version != version) {
       return null;
     }
 

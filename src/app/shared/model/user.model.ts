@@ -5,6 +5,8 @@ export class User {
   username = "";
   lastDifficulty = DifficultyConstant.DEFAULT;
   games: Game[] = [];
+  audioVolume = 0.25;
+  audioMuted = false;
 
   constructor(username: string, lastDifficulty: number, games: Game[]) {
     this.username = username;

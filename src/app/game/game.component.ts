@@ -7,6 +7,7 @@ import {Router} from "@angular/router";
 import {TimerService} from "../shared/service/timer.service";
 import {Element} from '../shared/model/element.model';
 import {Move} from "../shared/model/move.model";
+import {AudioService} from "../shared/service/audio.service";
 
 @Component({
   selector: 'app-game',
@@ -32,6 +33,7 @@ export class GameComponent implements OnInit, OnDestroy {
 
   constructor(private gameService: GameService,
               private timerService: TimerService,
+              private audioService: AudioService,
               private router: Router) {
     // récupère le dernier jeu de l'utilisateur courant
     this.gameService.updateWithLocalGame();
@@ -44,7 +46,7 @@ export class GameComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    if (this.game == undefined) {
+    if (this.game == undefined || this.game.end) {
       this.router.navigate(['/home']).then(() => {
       });
     } else {
@@ -119,6 +121,7 @@ export class GameComponent implements OnInit, OnDestroy {
    * Abandonne la partie en cours
    */
   giveup() {
+    this.audioService.playButtonSound();
     this.gameService.giveup();
     this.router.navigate(['/home']).then(() => {
     });
@@ -175,6 +178,8 @@ export class GameComponent implements OnInit, OnDestroy {
    * @param predicat - predicat de la nouvelle page
    */
   navigateTo(predicat: string) {
+    this.audioService.playButtonSound();
+
     // Conditions de victoire
     if (this.game.bestPath[this.game.bestPath.length - 1].arrival.subject == predicat) {
       this.stopTimer();
@@ -197,6 +202,8 @@ export class GameComponent implements OnInit, OnDestroy {
    * Appelé par l'utilisateur dans la popup de victoire
    */
   finishGame() {
+    this.audioService.playButtonSound();
+
     this.gameService.win();
     this.router.navigate(['/home']).then(() => {});
   }
@@ -205,6 +212,8 @@ export class GameComponent implements OnInit, OnDestroy {
    * Permet de revenir en arrière
    */
   backstep() {
+    this.audioService.playButtonSound();
+
     if (this.gameService.canBackstep()) {
       this.stopTimer();
       this.loaderWidth = '0';
@@ -262,6 +271,8 @@ export class GameComponent implements OnInit, OnDestroy {
    * Permet au joueur d'obtenir un indice
    */
   useHint() {
+    this.audioService.playButtonSound();
+
     if (this.game.hints > 0) {
       this.gameService.useHint().then((move) => {
         if (move) {
@@ -271,6 +282,15 @@ export class GameComponent implements OnInit, OnDestroy {
     } else {
       alert("Vous n'avez plus d'indice");
     }
+  }
+
+  /**
+   * Permet de fermer la popup d'indice
+   */
+  closeHint() {
+    this.audioService.playButtonSound();
+
+    this.hint = undefined;
   }
 
   ngOnDestroy(): void {

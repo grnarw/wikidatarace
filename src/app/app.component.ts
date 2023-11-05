@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import {Component, HostListener} from '@angular/core';
+import {AudioService} from "./shared/service/audio.service";
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,13 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'wikidatarace';
+
+  constructor(private audioService: AudioService) {
+  }
+
+  @HostListener('document:click', ['$event'])
+  public handleClick(): void {
+    this.audioService.play();
+  }
+
 }

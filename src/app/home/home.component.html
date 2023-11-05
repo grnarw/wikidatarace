@@ -1,6 +1,13 @@
 <div class="home-border">
     <div class="home-container">
 
+        <div class="slider-container">
+            <p>Volume :</p>
+            <input type="range" min="0" max="10" value="5" id="volume"
+                   [ngModel]="getVolume()" (ngModelChange)="updateVolume($event)"/>
+            <button id="mute" (click)="mute()">Mute</button>
+        </div>
+
         <h1 id="home-logo"></h1>
 
         <div class="home-input">

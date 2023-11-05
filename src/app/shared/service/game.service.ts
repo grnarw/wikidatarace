@@ -301,7 +301,6 @@ export class GameService implements OnDestroy {
     let previousMove = new Move();
     for(let i = game.userPath.length - 2; i >= 0; i--){
       if(!game.userPath[i].backstep && !game.userPath[i].backsteped){
-        console.log("LOGG:", game.userPath[i])
         previousMove = game.userPath[i];
         break;
       }
@@ -322,7 +321,6 @@ export class GameService implements OnDestroy {
     let previousMove = new Move();
     for(let i = game.userPath.length - 2; i >= 0; i--){
       if(!game.userPath[i].backstep && !game.userPath[i].backsteped){
-        console.log("LOGG:", game.userPath[i])
         previousMove = game.userPath[i];
         break;
       }

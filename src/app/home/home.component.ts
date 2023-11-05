@@ -5,6 +5,7 @@ import {Subscription} from "rxjs";
 import {Router} from "@angular/router";
 import {DifficultyConstant} from "../shared/constant/difficulty.constant";
 import {Game} from "../shared/model/game.model";
+import {AudioService} from "../shared/service/audio.service";
 
 @Component({
   selector: 'app-home',
@@ -18,6 +19,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   private subscriptions: Subscription[] = [];
 
   constructor(private userService: UserService,
+              private audioService: AudioService,
               private router: Router) {
   }
 
@@ -48,6 +50,7 @@ export class HomeComponent implements OnInit, OnDestroy {
    * @param difficulty - nouvelle difficulté
    */
   updateDifficulty(difficulty: number) {
+    this.audioService.playButtonSound();
     this.user.lastDifficulty = difficulty;
     this.userService.updateUser(this.user);
   }
@@ -57,6 +60,7 @@ export class HomeComponent implements OnInit, OnDestroy {
    * (appelé lors du clic sur le bouton "Nouvelle partie")
    */
   newGame() {
+    this.audioService.playButtonSound();
     this.user.games.push(new Game(this.user.lastDifficulty));
     this.userService.updateUser(this.user);
     this.router.navigate(['/game']).then();
@@ -67,6 +71,27 @@ export class HomeComponent implements OnInit, OnDestroy {
    */
   resumeGame() {
     this.router.navigate(['/game']).then();
+  }
+
+  /**
+   * Change le volume
+   */
+  updateVolume(vol: number) {
+    this.audioService.updateVolume(vol / 10 / 2);
+  }
+
+  /**
+   * Récupère le volume
+   */
+  getVolume() {
+    return this.audioService.getVolume() * 10 * 2;
+  }
+
+  /**
+   * Désactive le son
+   */
+  mute() {
+    this.audioService.mute();
   }
 
   ngOnDestroy(): void {
