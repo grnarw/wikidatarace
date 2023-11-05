@@ -1,3 +1,5 @@
-export enum StorageConstant {
-  USER = 'user'
+export class StorageConstant {
+  public static readonly ENCODE = true;
+  public static readonly USER = 'user';
+  public static readonly USER_VERSION = '1.0.0';
 }

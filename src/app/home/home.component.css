@@ -156,6 +156,7 @@ h2 {
     width: calc(70vh * 16 / 9);
     max-width: 1420px;
     max-height: 400px;
+    min-height: 200px;
     filter: drop-shadow(2px 2px 12px grey);
 }
 

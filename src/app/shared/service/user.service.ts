@@ -3,6 +3,7 @@ import {User} from "../model/user.model";
 import {StorageConstant} from "../constant/storage.constant";
 import {BehaviorSubject} from "rxjs";
 import {DifficultyConstant} from "../constant/difficulty.constant";
+import {StorageService} from "./storage.service";
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ export class UserService {
   private user = new User("", DifficultyConstant.DEFAULT, []);
   private userBehaviour = new BehaviorSubject<User>(this.user);
 
-  constructor() {
+  constructor(private storageService: StorageService) {
     this.init();
   }
 
@@ -55,7 +56,7 @@ export class UserService {
    * @private
    */
   private userExist(): boolean {
-    return localStorage.getItem(StorageConstant.USER) != null;
+    return this.storageService.itemExist(StorageConstant.USER, StorageConstant.USER_VERSION);
   }
 
   /**
@@ -63,7 +64,7 @@ export class UserService {
    * @private
    */
   private getLocalUser(): User {
-    return JSON.parse(localStorage.getItem(StorageConstant.USER)!) as User;
+    return this.storageService.getItem(StorageConstant.USER, StorageConstant.USER_VERSION)! as User;
   }
 
   /**
@@ -72,7 +73,7 @@ export class UserService {
    * @private
    */
   private setLocalUser(user: User) {
-    localStorage.setItem(StorageConstant.USER, JSON.stringify(user));
+    this.storageService.setItem(StorageConstant.USER, user, StorageConstant.USER_VERSION);
   }
 
 }
