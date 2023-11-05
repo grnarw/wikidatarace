@@ -1,251 +1,251 @@
 .home-border {
-    width: calc(100vh * 16 / 9);
-    margin: auto;
-    border-image: url("/assets/images/home-border.png") 135 fill / 10px / 10px stretch;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    position: relative;
+  width: calc(100vh * 16 / 9);
+  margin: auto;
+  border-image: url("/assets/images/home-border.png") 135 fill / 10px / 10px stretch;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
 
-    max-width: 1920px !important;
-    max-height: 1080px !important;
+  max-width: 1920px !important;
+  max-height: 1080px !important;
 }
 
 .home-border::before {
-    content: "";
-    display: block;
-    padding-top: 56.25%;
+  content: "";
+  display: block;
+  padding-top: 56.25%;
 }
 
 .home-border > * {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    margin: auto;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
 }
 
 .home-container {
-    flex-direction: column;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+  flex-direction: column;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
 
 #home-logo {
-    background: url("/assets/images/logo.png") no-repeat center;
-    background-size: contain;
-    width: 100%;
-    height: 5vw;
-    filter: drop-shadow(3px 3px 3px gray);
+  background: url("/assets/images/logo.png") no-repeat center;
+  background-size: contain;
+  width: 100%;
+  height: 5vw;
+  filter: drop-shadow(3px 3px 3px gray);
 }
 
 .home-input {
-    display: inline-flex;
-    background-color: transparent;
-    align-items: center;
-    gap: 1.2vw;
+  display: inline-flex;
+  background-color: transparent;
+  align-items: center;
+  gap: 1.2vw;
 }
 
 .home-input-border {
-    background-color: transparent;
-    border-image: url("/assets/images/input-username.png") 20 fill / 10px / 10px stretch;
-    filter: drop-shadow(2px 4px 6px grey);
+  background-color: transparent;
+  border-image: url("/assets/images/input-username.png") 20 fill / 10px / 10px stretch;
+  filter: drop-shadow(2px 4px 6px grey);
 }
 
 .home-input label {
-    font-size: min(1.4vw, 30px);
-    font-weight: 600;
-    letter-spacing: 2px;
-    font-family: 'Gochi Hand', sans-serif;
-    white-space: nowrap;
-    padding-left: 20px;
+  font-size: min(1.4vw, 30px);
+  font-weight: 600;
+  letter-spacing: 2px;
+  font-family: 'Gochi Hand', sans-serif;
+  white-space: nowrap;
+  padding-left: 20px;
 }
 
 .home-input input {
-    aspect-ratio: 18/3;
-    width: 17vw;
-    font-size: min(1.4vw, 30px);
-    font-weight: 600;
-    letter-spacing: 2px;
-    margin-right: 10px;
-    padding: 2px 14px 2px 15px;
-    font-family: 'Gochi Hand', sans-serif;
-    background: transparent;
-    border: none;
+  aspect-ratio: 18/3;
+  width: 17vw;
+  font-size: min(1.4vw, 30px);
+  font-weight: 600;
+  letter-spacing: 2px;
+  margin-right: 10px;
+  padding: 2px 14px 2px 15px;
+  font-family: 'Gochi Hand', sans-serif;
+  background: transparent;
+  border: none;
 }
 
 .home-input input:focus {
-    outline: none;
+  outline: none;
 }
 
 .home-input button {
-    background-color: transparent;
-    border-radius: 5px;
-    border-image: url("/assets/images/play-button.png") 12 fill / 1px / 8px stretch;
-    cursor: pointer;
-    width: 2.4vw;
-    height: 2.4vw;
-    margin-bottom: 0.6vw;
+  background-color: transparent;
+  border-radius: 5px;
+  border-image: url("/assets/images/play-button.png") 12 fill / 1px / 8px stretch;
+  cursor: pointer;
+  width: 2.4vw;
+  height: 2.4vw;
+  margin-bottom: 0.6vw;
 }
 
 .home-input button:hover {
-    opacity: .8;
-    color: white;
+  opacity: .8;
+  color: white;
 }
 
 .slider-container {
-    display: inline-flex;
-    font-size: min(1.2vw, 25px);
-    align-items: center;
-    gap: 15px;
+  display: inline-flex;
+  font-size: min(1.2vw, 25px);
+  align-items: center;
+  gap: 15px;
 }
 
 .slider-container p {
-    margin-right: 10px;
-    font-size: min(1.4vw, 30px);
-    font-weight: 600;
-    letter-spacing: 2px;
-    font-family: 'Gochi Hand', sans-serif;
-    white-space: nowrap;
+  margin-right: 10px;
+  font-size: min(1.4vw, 30px);
+  font-weight: 600;
+  letter-spacing: 2px;
+  font-family: 'Gochi Hand', sans-serif;
+  white-space: nowrap;
 }
 
 .slider-container input[type=range] {
-    appearance: none;
-    width: 250px;
-    margin: 10px 0;
-    background: transparent;
-    height: 15px;
-    border-right: 3px solid #000000cf;
-    border-left: 3px solid #000000cf;
-    position: relative;
-    cursor: pointer;
+  appearance: none;
+  width: 250px;
+  margin: 10px 0;
+  background: transparent;
+  height: 15px;
+  border-right: 3px solid #000000cf;
+  border-left: 3px solid #000000cf;
+  position: relative;
+  cursor: pointer;
 }
 
 .slider-container input[type=range]::before {
-    content: '';
-    position: absolute;
-    height: 3px;
-    width: 250px;
-    background: #000000cf;
-    top: 6px;
-    left: 0;
+  content: '';
+  position: absolute;
+  height: 3px;
+  width: 250px;
+  background: #000000cf;
+  top: 6px;
+  left: 0;
 }
 
 .slider-container input[type=range]::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 3px;
-    height: 20px;
-    background: #000000cf;
-    cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+  width: 3px;
+  height: 20px;
+  background: #000000cf;
+  cursor: pointer;
 }
 
 h2 {
-    margin-top: 30px;
+  margin-top: 30px;
 }
 
 .games-history-border {
-    border-image: url("/assets/images/games-history-border.png") 29 fill / 35px / 6px stretch;
-    border-radius: 5px;
-    padding: 60px 50px;
-    margin: 10px;
-    position: relative;
-    width: calc(70vh * 16 / 9);
-    max-width: 1420px;
-    max-height: 400px;
-    min-height: 200px;
-    filter: drop-shadow(2px 2px 12px grey);
+  border-image: url("/assets/images/games-history-border.png") 29 fill / 35px / 6px stretch;
+  border-radius: 5px;
+  padding: 60px 50px;
+  margin: 10px;
+  position: relative;
+  width: calc(70vh * 16 / 9);
+  max-width: 1420px;
+  max-height: 400px;
+  min-height: 200px;
+  filter: drop-shadow(2px 2px 12px grey);
 }
 
 .games-history-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .game-history-card {
-    border-image: url(/assets/images/game-history-card.png) 36 fill / 12px / 13px stretch;
-    width: calc(13vh * 38 / 4);
-    max-width: 1350px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+  border-image: url(/assets/images/game-history-card.png) 36 fill / 12px / 13px stretch;
+  width: calc(13vh * 38 / 4);
+  max-width: 1350px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .game-history-panel {
-    overflow-y: auto;
-    height: 22.4vw;
-    padding-right: .4vw;
-    max-height: 375px;
-    position: relative;
-    filter: drop-shadow(2px 3px 3px black);
+  overflow-y: auto;
+  height: 22.4vw;
+  padding-right: .4vw;
+  max-height: 375px;
+  position: relative;
+  filter: drop-shadow(2px 3px 3px black);
 }
 
 .game-history-panel::-webkit-scrollbar {
-    width: 5px;
+  width: 5px;
 }
 
 .game-history-panel::-webkit-scrollbar-track {
-    background: transparent;
+  background: transparent;
 }
 
 .game-history-panel::-webkit-scrollbar-thumb {
-    background: rgba(0, 0, 0, 0.8);
-    border-radius: 5px;
+  background: rgba(0, 0, 0, 0.8);
+  border-radius: 5px;
 }
 
 * {
-    scrollbar-width: thin;
-    scrollbar-color: black transparent;
+  scrollbar-width: thin;
+  scrollbar-color: black transparent;
 }
 
 .game-history-card-header {
-    padding: 0 22px;
-    margin-right: .4vw;
-    display: inline-flex;
-    align-items: center;
-    gap: 20px;
-    font-family: 'Gochi Hand', sans-serif;
-    font-size: min(1.4vw, 30px);
-    width: calc(12.5vh * 38 / 4);
-    max-width: 1285px;
-    justify-content: flex-start;
+  padding: 0 22px;
+  margin-right: .4vw;
+  display: inline-flex;
+  align-items: center;
+  gap: 20px;
+  font-family: 'Gochi Hand', sans-serif;
+  font-size: min(1.4vw, 30px);
+  width: calc(12.5vh * 38 / 4);
+  max-width: 1285px;
+  justify-content: flex-start;
 }
 
 .game-history-card-header p {
-    margin: 0;
+  margin: 0;
 }
 
 .game-history-card-body {
-    padding: 0 22px;
-    display: inline-flex;
-    align-items: center;
-    gap: 20px;
-    font-family: 'Gochi Hand', sans-serif;
-    font-size: min(1.2vw, 25px);
-    height: 85%;
-    justify-content: flex-start;
+  padding: 0 22px;
+  display: inline-flex;
+  align-items: center;
+  gap: 20px;
+  font-family: 'Gochi Hand', sans-serif;
+  font-size: min(1.2vw, 25px);
+  height: 85%;
+  justify-content: flex-start;
 }
 
 @media (max-aspect-ratio: 16/9) {
-    .home-border {
-        aspect-ratio: 16/9;
-        width: 100vw;
-    }
+  .home-border {
+    aspect-ratio: 16/9;
+    width: 100vw;
+  }
 
-    .games-history-border {
-        aspect-ratio: 26/9;
-        width: 70vw;
-    }
+  .games-history-border {
+    aspect-ratio: 26/9;
+    width: 70vw;
+  }
 
-    .game-history-card {
-        width: 100%;
-    }
+  .game-history-card {
+    width: 100%;
+  }
 
-    .game-history-card-header {
-        width: 86%;
-    }
+  .game-history-card-header {
+    width: 86%;
+  }
 }

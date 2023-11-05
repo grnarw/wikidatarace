@@ -1,4 +1,4 @@
-import { Element } from "./element.model";
+import {Element} from "./element.model";
 
 export class Move {
   departure = new Element("", "", "");

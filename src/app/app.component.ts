@@ -1,5 +1,4 @@
-import {Component, HostListener} from '@angular/core';
-import {AudioService} from "./shared/service/audio.service";
+import {Component} from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -8,12 +7,7 @@ import {AudioService} from "./shared/service/audio.service";
 })
 export class AppComponent {
 
-  constructor(private audioService: AudioService) {
-  }
-
-  @HostListener('document:click', ['$event'])
-  public handleClick(): void {
-    this.audioService.play();
+  constructor() {
   }
 
 }

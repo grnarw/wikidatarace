@@ -36,25 +36,15 @@ export class UserService {
   }
 
   /**
-   * Enregistre le volume de l'utilisateur
-   * @param vol - volume audio
-   */
-  updateVolume(vol: number) {
-    this.user.audioVolume = vol;
-    this.setLocalUser(this.user);
-    this.userBehaviour.next(this.user);
-  }
-
-  /**
    * Initialise le service
    * Si l'utilisateur n'existe pas dans le localStorage, on l'ajoute
    * Sinon on récupère l'utilisateur du localStorage
    * @private
    */
-  private init(){
+  private init() {
     if (this.userExist()) {
       this.user = this.getLocalUser();
-    }else{
+    } else {
       this.setLocalUser(this.user);
     }
 

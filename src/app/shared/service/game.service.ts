@@ -80,7 +80,7 @@ export class GameService implements OnDestroy {
     //vide le tableau
     game.bestPath.pop();
 
-    for(let i = 0; i < difficulty; i++) {
+    for (let i = 0; i < difficulty; i++) {
 
       // récupère les propriétés de l'élément courant (sans doublons)
       let properties = await this.wikidataService.getSubjectProperties(departureSubject);
@@ -159,7 +159,7 @@ export class GameService implements OnDestroy {
 
         // met à jour le label de chaque propriété
         currentMove.departure.elements.forEach((elm2: Element) => {
-          if(elm.subject === elm2.subject) {
+          if (elm.subject === elm2.subject) {
             elm2.subjectLabel = label;
           }
         });
@@ -205,7 +205,7 @@ export class GameService implements OnDestroy {
     // met à jour le jeu courant
     game.result = "Gagné";
     game.status = "finished";
-    game.score = game.difficulty * 1000 - ( game.duration/2 * game.userPath.length );
+    game.score = game.difficulty * 1000 - (game.duration / 2 * game.userPath.length);
     game.end = new Date();
     this.gameBehaviorSubject.next(game);
 
@@ -270,7 +270,7 @@ export class GameService implements OnDestroy {
       return elm.predicate === predicat;
     });
 
-    if(!element){
+    if (!element) {
       alert("Vous ne pouvez pas naviguer vers cette page");
       return;
     }
@@ -299,8 +299,8 @@ export class GameService implements OnDestroy {
     let game = this.gameBehaviorSubject.getValue();
     // récupère l'élément précédent (qui n'est pas un retour en arrière)
     let previousMove = new Move();
-    for(let i = game.userPath.length - 2; i >= 0; i--){
-      if(!game.userPath[i].backstep && !game.userPath[i].backsteped){
+    for (let i = game.userPath.length - 2; i >= 0; i--) {
+      if (!game.userPath[i].backstep && !game.userPath[i].backsteped) {
         previousMove = game.userPath[i];
         break;
       }
@@ -319,8 +319,8 @@ export class GameService implements OnDestroy {
     let currentMove = game.userPath[game.userPath.length - 1];
     // récupère l'élément précédent (qui n'est pas un retour en arrière)
     let previousMove = new Move();
-    for(let i = game.userPath.length - 2; i >= 0; i--){
-      if(!game.userPath[i].backstep && !game.userPath[i].backsteped){
+    for (let i = game.userPath.length - 2; i >= 0; i--) {
+      if (!game.userPath[i].backstep && !game.userPath[i].backsteped) {
         previousMove = game.userPath[i];
         break;
       }
@@ -353,7 +353,7 @@ export class GameService implements OnDestroy {
     let game = this.gameBehaviorSubject.getValue();
     if (game.hints > 0) {
       // récupère le prochain déplacement du chemin de l'ordinateur
-      let nextMove = game.bestPath[game.maxHints-game.hints];
+      let nextMove = game.bestPath[game.maxHints - game.hints];
 
       //met à jour les labels des sujets
       nextMove.departure.subjectLabel = await this.wikidataService.getSubjectLabel(nextMove.departure.subject);
@@ -368,7 +368,7 @@ export class GameService implements OnDestroy {
     return;
   }
 
-  getUsername(){
+  getUsername() {
     return this.user.username;
   }
 

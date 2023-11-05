@@ -205,7 +205,8 @@ export class GameComponent implements OnInit, OnDestroy {
     this.audioService.playButtonSound();
 
     this.gameService.win();
-    this.router.navigate(['/home']).then(() => {});
+    this.router.navigate(['/home']).then(() => {
+    });
   }
 
   /**
@@ -291,6 +292,13 @@ export class GameComponent implements OnInit, OnDestroy {
     this.audioService.playButtonSound();
 
     this.hint = undefined;
+  }
+
+  /**
+   * Permet de retourner une image aléatoire pour le style css
+   */
+  getPropertyBorderStyle(i: number) {
+    return "border-image-source: url('/assets/images/game-property-border-" + ((i % 5) + 1) + ".png');"
   }
 
   ngOnDestroy(): void {

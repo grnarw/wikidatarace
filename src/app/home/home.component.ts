@@ -73,27 +73,6 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.router.navigate(['/game']).then();
   }
 
-  /**
-   * Change le volume
-   */
-  updateVolume(vol: number) {
-    this.audioService.updateVolume(vol / 10 / 2);
-  }
-
-  /**
-   * Récupère le volume
-   */
-  getVolume() {
-    return this.audioService.getVolume() * 10 * 2;
-  }
-
-  /**
-   * Désactive le son
-   */
-  mute() {
-    this.audioService.mute();
-  }
-
   ngOnDestroy(): void {
     this.subscriptions.forEach(sub => sub.unsubscribe());
   }

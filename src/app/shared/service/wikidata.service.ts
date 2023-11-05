@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {Observable} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +8,8 @@ import { Observable } from 'rxjs';
 export class WikidataService {
   private endpoint: string = 'https://query.wikidata.org/sparql';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+  }
 
   /**
    * Permet de récupérer le label d'un sujet
@@ -57,7 +58,7 @@ export class WikidataService {
 
     return this.http.get(this.endpoint, {
       headers: headers,
-      params: { query: query }
+      params: {query: query}
     });
   }
 }
