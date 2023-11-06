@@ -230,6 +230,11 @@ h2 {
   justify-content: flex-start;
 }
 
+.game-no-history {
+  text-align: center;
+  font-size: 1.3vw;
+}
+
 @media (max-aspect-ratio: 16/9) {
   .home-border {
     aspect-ratio: 16/9;
