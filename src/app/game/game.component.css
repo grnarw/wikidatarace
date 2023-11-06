@@ -1,7 +1,7 @@
 .game-border {
   width: calc(100vh * 14.3 / 8);
   margin: auto;
-  border-image: url('/assets/images/game-border.png') 30 fill / 0 / 20px stretch;
+  border-image: url('/assets/images/game-border.png') 30 fill / 1px / 20px stretch;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -78,7 +78,7 @@
 }
 
 .header-side-bar i {
-  border-image: url('/assets/images/game-user-icon.png') 8 fill / 0 / 0 stretch;
+  border-image: url('/assets/images/game-user-icon.png') 8 fill / 1px / 1px stretch;
   width: 20%;
   aspect-ratio: 1;
   min-width: 35px;
