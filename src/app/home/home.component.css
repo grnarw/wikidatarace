@@ -113,6 +113,8 @@
 }
 
 .slider-container input[type=range] {
+  -webkit-appearance: none;
+  border-radius: 0;
   appearance: none;
   width: 250px;
   margin: 10px 0;

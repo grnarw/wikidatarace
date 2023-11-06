@@ -110,6 +110,8 @@
 }
 
 .moves-history button {
+  -webkit-appearance: none;
+  color: black;
   margin-top: 6px;
   background: transparent;
   border: none;
@@ -127,6 +129,8 @@
 }
 
 .giveup-button {
+  -webkit-appearance: none;
+  color: black;
   padding: 2.6% 2% 13% 11%;
   height: 11%;
   display: flex;
@@ -141,6 +145,8 @@
 }
 
 .giveup-button button {
+  -webkit-appearance: none;
+  color: black;
   font-size: min(1.3vw, 27px);
   padding: 2% 17% 2% 17%;
   background: transparent;
@@ -186,6 +192,8 @@
 }
 
 .hint-button {
+  -webkit-appearance: none;
+  color: black;
   background: transparent;
   border: none;
   cursor: pointer;
@@ -318,6 +326,7 @@
   flex-direction: column;
   align-items: center;
   gap: 25px;
+  position: relative;
 }
 
 .popup-content h1 {
@@ -333,6 +342,8 @@
 }
 
 .popup-content button {
+  -webkit-appearance: none;
+  color: black;
   cursor: pointer;
   margin-top: 3%;
   height: 4%;
