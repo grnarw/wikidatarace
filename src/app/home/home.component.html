@@ -39,7 +39,7 @@
         </div>
 
         <div class="game-history-panel">
-          <div class="game-history-card" *ngFor="let game of user.games.reverse()">
+          <div class="game-history-card" *ngFor="let game of user.games | orderByDate">
             <div class="game-history-card-body">
               <p style="width: 11vw;">{{ game.start | date:'dd/MM/yyyy HH:mm' }}</p>
               <p style="width: 12vw;">{{ game.userPath.at(0)?.departure?.subjectLabel }}</p>

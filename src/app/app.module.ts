@@ -9,6 +9,7 @@ import {GameComponent} from './game/game.component';
 import {FormsModule} from "@angular/forms";
 import {RoundUpPipe} from './shared/pipe/round-up.pipe';
 import {TimePipe} from "./shared/pipe/time.pipe";
+import {OrderByDatePipe} from "./shared/pipe/order-by-date.pipe";
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import {TimePipe} from "./shared/pipe/time.pipe";
     HomeComponent,
     GameComponent,
     RoundUpPipe,
-    TimePipe
+    TimePipe,
+    OrderByDatePipe
   ],
   imports: [
     BrowserModule,
