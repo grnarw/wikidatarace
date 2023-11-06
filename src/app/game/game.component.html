@@ -34,11 +34,11 @@
 
     <div class="game-page">
       <div class="header-game">
-        <div class="hints">
-          <p *ngIf="game.status == 'in-progress' || game.status == 'nav-loading'">
+        <div class="hints" *ngIf="game.status == 'in-progress' || game.status == 'nav-loading'">
+          <i class="hint-button" (click)="useHint()"></i>
+          <p>
             Indices : {{ game.hints }} / {{ game.maxHints }}
           </p>
-          <button (click)="useHint()">Utiliser</button>
         </div>
         <div class="page-name">
           <!-- Point Départ de la page -->
@@ -58,10 +58,10 @@
 
         <!-- Barre de chargement-->
         <div *ngIf="game.status == 'loading' || game.status == 'nav-loading'" class="loader-content">
-          <h3>Chargement : {{step}}</h3>
           <div class="loader-container">
             <div class="loader" style="width: 0{{loaderWidth}}"></div>
           </div>
+          <h3>Chargement : {{step}}</h3>
         </div>
 
         <div class="property-card-container" *ngIf="game.status == 'in-progress'">
@@ -79,9 +79,9 @@
   </div>
 </div>
 
-
 <div class="popup" *ngIf="hint">
   <div class="popup-content">
+    <i class="popup-close-button" (click)="closeHint()"></i>
     <h1>Indice</h1>
     <p>Naviguez depuis la page <b style="text-transform: capitalize">{{ hint.departure.subjectLabel }}</b> vers la
       page <b style="text-transform: capitalize">{{ hint.arrival.subjectLabel }}</b></p>
@@ -91,6 +91,7 @@
 
 <div class="popup" *ngIf="displayWin">
   <div class="popup-content">
+    <i class="popup-close-button" (click)="finishGame()"></i>
     <h1>Bravo !</h1>
     <p>Vous avez terminé le jeu en {{ game.userPath.length }} coups</p>
     <p>Score : {{ game.difficulty * 1000 - (game.duration / 2 * game.userPath.length) | roundUp }}</p>
