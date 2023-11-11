@@ -34,8 +34,9 @@
           <p style="width: 12vw;">Arrivée</p>
           <p style="width: 4vw;">Temps</p>
           <p style="width: 5vw;">Difficulté</p>
+          <p style="width: 3vw;">Coups</p>
           <p style="width: 3vw;">Score</p>
-          <p>Résultat</p>
+          <p style="width: 7vw">Résultat</p>
         </div>
 
         <div class="game-history-panel">
@@ -46,8 +47,9 @@
               <p style="width: 12vw;">{{ game.bestPath.at(game.bestPath.length - 1)?.arrival?.subjectLabel }}</p>
               <p style="width: 4vw;">{{ game.duration | formatTime }}</p>
               <p style="width: 5vw;">{{ game.difficulty }}</p>
+              <p style="width: 3vw;">{{ game.userPath.length }}</p>
               <p style="width: 3vw;">{{ game.score | roundUp }}</p>
-              <p>{{ game.result }}</p>
+              <p style="width: 7vw">{{ game.result }}</p>
             </div>
           </div>
         </div>

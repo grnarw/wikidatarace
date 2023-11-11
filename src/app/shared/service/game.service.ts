@@ -188,6 +188,7 @@ export class GameService implements OnDestroy {
 
     // met à jour le jeu courant
     game.result = "Abandonné";
+    game.score = 0;
     game.end = new Date();
     this.gameBehaviorSubject.next(game);
 

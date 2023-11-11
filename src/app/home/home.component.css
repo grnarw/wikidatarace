@@ -155,7 +155,7 @@ h2 {
   padding: 60px 50px;
   margin: 10px;
   position: relative;
-  width: calc(70vh * 16 / 9);
+  width: calc(75vh * 16 / 9);
   max-width: 1420px;
   max-height: 400px;
   min-height: 200px;
@@ -170,7 +170,7 @@ h2 {
 
 .game-history-card {
   border-image: url(/assets/images/game-history-card.png) 36 fill / 12px / 13px stretch;
-  width: calc(13vh * 38 / 4);
+  width: calc(14vh * 38 / 4);
   max-width: 1350px;
   display: flex;
   flex-direction: column;
@@ -212,7 +212,7 @@ h2 {
   gap: 20px;
   font-family: 'Gochi Hand', sans-serif;
   font-size: min(1.4vw, 30px);
-  width: calc(12.5vh * 38 / 4);
+  width: calc(13.5vh * 38 / 4);
   max-width: 1285px;
   justify-content: flex-start;
 }
@@ -253,6 +253,6 @@ h2 {
   }
 
   .game-history-card-header {
-    width: 86%;
+    width: 95%;
   }
 }
