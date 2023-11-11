@@ -1,27 +1,37 @@
-# Wikidatarace
+# Wikidata Race
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.9.
+## Sommaire
 
-## Development server
+- [Description](#description)
+- [Installation](#installation)
+  - [Prérequis](#prérequis)
+  - [Installation](#installation-1)
+- [Utilisation](#utilisation)
+- [Auteurs](#auteurs)
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Description
 
-## Code scaffolding
+Wikidata Race est un jeu de course de navigation entre deux pages. Il utilise les données de Wikidata via des requêtes SPARQL. Voir le rapport Word pour plus d'informations.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Installation
 
-## Build
+### Prérequis
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+- Node JS
+- Angular CLI
 
-## Running unit tests
+### Installation
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+- Cloner le projet
+- Installer les dépendances avec `npm install`
+- Lancer le serveur avec `ng serve`
 
-## Running end-to-end tests
+## Utilisation
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+- Aller sur `localhost:4200`
+- Jouer
 
-## Further help
+## Auteurs
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+- ABKAR Youssef
+- ZAOUANE Thibault
