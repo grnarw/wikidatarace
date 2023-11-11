@@ -49,17 +49,4 @@ export class StorageService {
     return customObject.value;
   }
 
-  /**
-   * Permet de vériier si la chaine est en base64
-   * @param str
-   * @returns boolean
-   */
-  isBase64(str: string) {
-    try {
-      return btoa(atob(str)) === str;
-    } catch (err) {
-      return false;
-    }
-  }
-
 }

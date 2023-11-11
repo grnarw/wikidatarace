@@ -60,6 +60,11 @@ export class HomeComponent implements OnInit, OnDestroy {
    * (appelé lors du clic sur le bouton "Nouvelle partie")
    */
   newGame() {
+    if (this.user.username == "") {
+      alert("Veuillez entrer un nom d'utilisateur");
+      return;
+    }
+
     this.audioService.playButtonSound();
     this.user.games.push(new Game(this.user.lastDifficulty));
     this.userService.updateUser(this.user);

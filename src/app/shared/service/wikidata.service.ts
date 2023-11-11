@@ -25,6 +25,11 @@ export class WikidataService {
       }
     `;
     const response = await this.executeSparqlQuery(sparqlQuery).toPromise();
+
+    if (!response.results.bindings.length) {
+      throw new Error('Aucun label trouvé');
+    }
+
     return response.results.bindings[0].subjectLabel.value;
   }
 
@@ -48,6 +53,12 @@ export class WikidataService {
       }
     `;
     const response = await this.executeSparqlQuery(sparqlQuery).toPromise();
+
+    // Si aucune propriété n'est trouvée
+    if (!response.results.bindings.length) {
+      throw new Error('Aucune propriété trouvée');
+    }
+
     return response.results.bindings;
   }
 

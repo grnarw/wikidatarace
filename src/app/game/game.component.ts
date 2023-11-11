@@ -68,26 +68,35 @@ export class GameComponent implements OnInit, OnDestroy {
    */
   async initNewGame() {
 
-    this.step = "Initialisation du point de départ";
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    this.loaderWidth = '25%';
-    this.gameService.initStartingPoint();
+    try {
 
-    this.step = "Initialisation du point d'arrivée";
-    await this.gameService.initBestPath();
-    this.loaderWidth = '75%';
+      this.step = "Initialisation du point de départ";
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      this.loaderWidth = '25%';
+      this.gameService.initStartingPoint();
 
-    this.step = "Préparation de la page";
-    await this.gameService.initNewPage();
+      this.step = "Initialisation du point d'arrivée";
+      await this.gameService.initBestPath();
+      this.loaderWidth = '75%';
 
-    // Recupère les propriétés de l'élément courant sans doublons
-    this.initUniqueProperties();
+      this.step = "Préparation de la page";
+      await this.gameService.initNewPage();
 
-    this.loaderWidth = '100%';
-    await new Promise(resolve => setTimeout(resolve, 1000));
+      // Recupère les propriétés de l'élément courant sans doublons
+      this.initUniqueProperties();
 
-    this.gameService.updateStatus("in-progress");
-    this.startTimer();
+      this.loaderWidth = '100%';
+      await new Promise(resolve => setTimeout(resolve, 1000));
+
+      this.gameService.updateStatus("in-progress");
+      this.startTimer();
+
+    } catch (e) {
+      this.gameService.removeGame();
+      alert("Une erreur est survenue lors de l'initialisation de la partie");
+      this.router.navigate(['/home']).then(() => {
+      });
+    }
   }
 
   /**

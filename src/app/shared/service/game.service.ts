@@ -202,14 +202,16 @@ export class GameService implements OnDestroy {
     // récupère le jeu courant
     let game = this.gameBehaviorSubject.getValue();
 
+    // met à jour le score
+    this.calculateScore();
+
     // met à jour le jeu courant
     game.result = "Gagné";
-    game.status = "finished";
-    game.score = game.difficulty * 1000 - (game.duration / 2 * game.userPath.length);
     game.end = new Date();
-    this.gameBehaviorSubject.next(game);
+    game.status = "finished";
 
     // met à jour l'utilisateur
+    this.gameBehaviorSubject.next(game);
     this.userService.updateUser(this.user);
   }
 
@@ -338,8 +340,6 @@ export class GameService implements OnDestroy {
     newMove.departure.subjectLabel = previousMove.departure.subjectLabel;
     game.userPath.push(newMove);
 
-    console.log(newMove);
-
     // met à jour le jeu courant
     this.gameBehaviorSubject.next(game);
   }
@@ -381,6 +381,22 @@ export class GameService implements OnDestroy {
     // met à jour le score en fonction de la difficulté, de la durée et du nombre d'indices utilisés
     game.score = game.difficulty * 1000 - (game.duration / 2 * game.userPath.length) - (game.maxHints - game.hints) * 500;
     this.gameBehaviorSubject.next(game);
+  }
+
+  /**
+   * Supprime la partie en cours si une erreur est survenue
+   */
+  removeGame() {
+    // récupère le jeu courant
+    let game = this.gameBehaviorSubject.getValue();
+
+    // supprime le jeu courant
+    game.result = "Erreur";
+    game.end = new Date();
+    this.gameBehaviorSubject.next(game);
+
+    // met à jour l'utilisateur
+    this.userService.updateUser(this.user);
   }
 
   getUsername() {
