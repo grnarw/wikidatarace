@@ -50,7 +50,7 @@
           <p *ngIf="game.status == 'in-progress' || game.status == 'nav-loading'">Temps
             : {{ currentTime | formatTime }}</p>
           <p *ngIf="game.status == 'in-progress' || game.status == 'nav-loading'">Score
-            : {{ game.difficulty * 1000 - (game.duration / 2 * game.userPath.length) | roundUp }}</p>
+            : {{ game.score }}</p>
         </div>
       </div>
 
@@ -94,7 +94,7 @@
     <i class="popup-close-button" (click)="finishGame()"></i>
     <h1>Bravo !</h1>
     <p>Vous avez terminé le jeu en {{ game.userPath.length }} coups</p>
-    <p>Score : {{ game.difficulty * 1000 - (game.duration / 2 * game.userPath.length) | roundUp }}</p>
+    <p>Score : {{ game.score }}</p>
     <button (click)="finishGame()">Fermer</button>
   </div>
 </div>

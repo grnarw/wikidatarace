@@ -137,6 +137,7 @@ export class GameComponent implements OnInit, OnDestroy {
     this.timerSubscription = this.timerService.startTimer(this.currentTime).subscribe(time => {
       this.currentTime = time;
       this.game.duration = time;
+      this.gameService.calculateScore();
       this.gameService.saveGame(this.game);
     });
   }

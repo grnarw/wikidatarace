@@ -359,13 +359,28 @@ export class GameService implements OnDestroy {
       nextMove.departure.subjectLabel = await this.wikidataService.getSubjectLabel(nextMove.departure.subject);
       nextMove.arrival.subjectLabel = await this.wikidataService.getSubjectLabel(nextMove.arrival.subject);
 
-      // met à jour le jeu courant
-      game.score -= 500;
+      //retire un indice
       game.hints--;
+
+      // met à jour le jeu courant
       this.gameBehaviorSubject.next(game);
+      this.calculateScore();
+
       return nextMove;
     }
     return;
+  }
+
+  /**
+   * Permet de calculer le score de la partie à l'instant t
+   */
+  calculateScore() {
+    // récupère le jeu courant
+    let game = this.gameBehaviorSubject.getValue();
+
+    // met à jour le score en fonction de la difficulté, de la durée et du nombre d'indices utilisés
+    game.score = game.difficulty * 1000 - (game.duration / 2 * game.userPath.length) - (game.maxHints - game.hints) * 500;
+    this.gameBehaviorSubject.next(game);
   }
 
   getUsername() {
